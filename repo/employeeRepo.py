@@ -2,8 +2,8 @@
 Accessing the "Employee" database. Which is really the CSV
 """
 
-from model import Employee
-
+from model.employee import Employee
+import csv
 #TODO: Parse the File
     #SPIKE possible options for DB version handling
 #TODO: Singultine Approach, Refactor all databases.
@@ -13,7 +13,16 @@ class EmployeeRepo():
         #We will pretend like we can't use CSV()
         self.repoPath = repoPath
         self.employees = []
-        pass
+        self.__load_repo()
+
+    def __load_repo(self):
+        with open(self.repoPath, 'r') as repo:
+            reader = csv.DictReader(repo)
+            for row in reader:
+                self.add_one(row['ID'], row['Name'], row['Address'], row['City']
+                , row['State'], row['Zip'], row['Classification'], row['PayMethod']
+                , [row['Salary'], row['Hourly'], row['Commission']], row['Route']
+                , row['Account'])
 
     def get_one_by_id(self, emp_id):
         for employee in self.employees:
@@ -25,23 +34,14 @@ class EmployeeRepo():
     def get_all_employees(self):
         return self.employees
 
-    def add_one(self, int:id, string:name, string:street_address, string:city,
-                string:state, int:zipcode, classification=None, payment_Method,
+    def add_one(self, id, name, street_address, city,
+                state, zipcode, classification, payment_Method,
                 income, route, account):
         self.employees.append(
-                    _create_employee(id, name, street_address, city,
+                    Employee(id, name, street_address, city,
                     state, zipcode, classification, payment_Method,
                     income, route, account)
                     )
-
-    def _create_employee(int:id, string:name, string:street_address, string:city,
-                string:state, int:zipcode, classification=None, payment_Method,
-                income, route, account):
-
-        emp = Employee(id, name, street_address, city, state, zipcode,
-                       classification, payment_Method, income, route, account)
-
-        return emp
 
     def remove_one_by_id(self, emp_id):
         for employee in self.employees:
