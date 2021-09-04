@@ -1,8 +1,14 @@
 """
 Handles the Employee Model
 New Employees, Deleting Employees, Etc
+
+This Class should only accept Employee Information.
+We only calculate/set Employee information through this.
+Retrieving Timecards is allowed as that is a sub-component of Employees.
+
+Payment is not calculated in here as that *uses* employees, not is part of them.
 """
-from dao import EmployeeRepo
+from repo import EmployeeRepo
 _EmpRepo = None
 
 def start_controller(string:repoPath=".//resources//employees.csv"):

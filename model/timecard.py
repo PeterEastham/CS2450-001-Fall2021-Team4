@@ -1,4 +1,8 @@
-
+"""
+Getters/Setters for the Timecard Data Object.
+This class DOES NOT COMPUTE TOTAL HOURS WORKED!
+"""
+#TODO: To-CSV for Repository
 class Timecard():
 
     def __init__(self, id, hours):

@@ -1,6 +1,9 @@
-
+"""
+Handles the Receipt "Repository", which is really a CSV
+"""
 from model import Receipt
 
+#TODO: Parse File
 class ReceiptRepo():
 
     def __init__(self, resourceString=".//resources//receipts.csv"):

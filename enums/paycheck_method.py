@@ -1,3 +1,7 @@
+"""
+Allows us to use Integer Comparision instead of String Comparision, beyond
+that we can easily add in more Methods without changing IF Statements.
+"""
 from enum import Enum, unique
 
 @unique

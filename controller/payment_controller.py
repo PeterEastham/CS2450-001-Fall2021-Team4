@@ -1,10 +1,17 @@
 """
-Handles Payment. Mostly
+Handles Payment.
+
+Primarly Focused on a Functional Approach to increase Testability.
+Can Accept Employee/Timecard/Receipt objects/references.
+
+An Employee's Information IS NOT CALCULATED IN HERE. Please insert any
+employee logic into the Employee Controller, it is more readable.
 """
 
 from model import Employee
 from employee_controller import *
 from enums import Classification, Paycheck_Method
+from repo import receiptRepo
 
 
 def get_pay(emp):

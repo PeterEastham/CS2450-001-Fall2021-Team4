@@ -1,5 +1,8 @@
 """
 Employee Model
+
+Handles Getter/Settings, and the Data Model. Also handles a To-String (To-CSV?)
+Function that the Repository code will use.
 """
 from enums import Classification, Paycheck_Method
 

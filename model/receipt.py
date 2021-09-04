@@ -1,5 +1,7 @@
-
-
+"""
+Getters/Setters for the Receipt Data Object
+"""
+#TODO: To-CSV for the Receipt Database
 class Receipt():
 
     def __init__(self, id, costs):

@@ -1,7 +1,9 @@
-
+"""
+Handles the Timecard "Repository", which is really a CSV
+"""
 from model import Timecard
 
-
+#TODO: Parse File
 class TimeCardRepo():
 
     def __init__(self, resourcesString=".//resources//timecards.csv"):

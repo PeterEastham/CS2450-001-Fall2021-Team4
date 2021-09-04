@@ -4,6 +4,9 @@ Accessing the "Employee" database. Which is really the CSV
 
 from model import Employee
 
+#TODO: Parse the File
+    #SPIKE possible options for DB version handling
+#TODO: Singultine Approach, Refactor all databases.
 class EmployeeRepo():
 
     def __init__(self, repoPath=".//resources//employees.csv"):
@@ -22,7 +25,6 @@ class EmployeeRepo():
     def get_all_employees(self):
         return self.employees
 
-    #TODO Pass the components of an employee in so we can use _create_employee
     def add_one(self, int:id, string:name, string:street_address, string:city,
                 string:state, int:zipcode, classification=None, payment_Method,
                 income, route, account):

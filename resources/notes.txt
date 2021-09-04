@@ -1,0 +1,8 @@
+For Reference
+
+
+This folder is designed to hold the "Repositories" for all models. It should
+be viewed similar to a SQL Server.
+
+BY EXTENSION
+Payment Logs should not be placed in here. Ever.
