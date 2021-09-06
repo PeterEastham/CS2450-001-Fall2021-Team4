@@ -8,10 +8,12 @@ An Employee's Information IS NOT CALCULATED IN HERE. Please insert any
 employee logic into the Employee Controller, it is more readable.
 """
 
-from model import Employee
+from model.employee import Employee
+from model.receipt import Receipt
 from employee_controller import *
-from enums import Classification, Paycheck_Method
-from repo import receiptRepo
+from receipt_controller import *
+from enums.classification import Classification
+from enums.paycheck_method import Paycheck_Method
 
 
 def get_pay(emp):
