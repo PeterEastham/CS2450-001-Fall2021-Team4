@@ -71,7 +71,7 @@ class Employee:
     def get_name(self):
         return self.name
 
-    def save_employee(self):
+    def save_format(self):
         return (str(self.id) + ","
                +str(self.name) + ","
                +str(self.street_address) + ","
@@ -85,3 +85,18 @@ class Employee:
                +str(self.commission_rate) + ","
                +str(self.route) + ","
                +str(self.account) + "\n")
+
+    def __str__(self):
+        return (str(self.id) + ","
+               +str(self.name) + ","
+               +str(self.street_address) + ","
+               +str(self.city) + ","
+               +str(self.state) + ","
+               +str(self.zipcode) + ","
+               +str(self.classification) + ","
+               +str(self.payment_Method) + ","
+               +str(self.salary) + ","
+               +str(self.hourly) + ","
+               +str(self.commission_rate) + ","
+               +str(self.route) + ","
+               +str(self.account))

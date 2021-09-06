@@ -17,6 +17,14 @@ class Receipt():
     def get_total_costs(self):
         return sum(self.costs)
 
-    # Needs to be fixed.
+    def save_format(self):
+        temp = self.id
+        for cost in self.costs:
+            temp += "," + str(cost)
+        return temp + "\n"
+
     def __str__(self):
-        return self.id + " ,".join(self.costs)
+        temp = self.id
+        for cost in self.costs:
+            temp += ", " + str(cost)
+        return temp
