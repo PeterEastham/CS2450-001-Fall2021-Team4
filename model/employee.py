@@ -33,6 +33,7 @@ class Employee:
         self.zipcode = zipcode
         self.classification = int(classification)
         self.payment_Method = int(payment_Method)
+        #Research more into Income Handling
         self.salary = 0
         self.hourly = 0
         self.commission_rate = 0
@@ -40,9 +41,9 @@ class Employee:
         self.account = account
         self.permissions = []
 
-        self.__set_income(income)
+        self.set_income(income)
 
-    def __set_income(self, money):
+    def set_income(self, money):
         if self.classification == Classification.SALARIED:
             self.salary = money[0]
         if self.classification == Classification.HOURLY:
@@ -57,9 +58,6 @@ class Employee:
             return self.hourly
         if self.classification == Classification.COMMISSIONED:
             return self.commission_rate
-
-    def set_paycheck_method(self, method):
-        self.payment_Method = method
 
     def get_pay(self):
         return [self.payment_Method, self.classification, self.__get_income()]

@@ -3,10 +3,9 @@ Accessing the "Employee" database. Which is really the CSV
 """
 
 from model.employee import Employee
+from service.version_handling import class_csv_headers
 import csv
-#TODO: Parse the File
-    #SPIKE possible options for DB version handling
-#TODO: Singultine Approach, Refactor all databases.
+
 class EmployeeRepo():
 
     def __init__(self, repoPath=".//resources//employees.csv"):
@@ -49,9 +48,12 @@ class EmployeeRepo():
                 self.employees.remove(employee)
 
     def save_repo(self):
-        #file logic, save each employee
-        sorted_employees = sorted(self.employess, key=lambda Employee: Employee.id)
-        pass
+        sorted_employees = sorted(self.employees, key=lambda Employee: Employee.id)
+        with open((".//resources//test_file.csv"), 'w') as save_repo:
+            save_repo.write(class_csv_headers(sorted_employees[0]))
+            for employee in sorted_employees:
+                save_repo.write(employee.save_format())
+
 
     def update_employee(self, employee):
         self.remove_one_by_id(employee.id)
