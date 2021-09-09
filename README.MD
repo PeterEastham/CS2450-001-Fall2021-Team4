@@ -1,5 +1,5 @@
-# CS2450-001-Fall2021-Team4
- Repository for Team 4. Primarily code, and its associated documentation
+# CS2450-001-Fall2021-Team2
+ Repository for Team 2 Now. Primarily code, and its associated documentation. Repository name will not be changed, as I cannot be bothered to.
 
 # Coding Design
   Code is done in Python, following the PEP-8 standard, and uses the
