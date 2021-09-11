@@ -1,6 +1,9 @@
 # CS2450-001-Fall2021-Team2
  Repository for Team 2 Now. Primarily code, and its associated documentation. Repository name will not be changed, as I cannot be bothered to.
 
+# How to Run
+  Navigate to the folder CS2450-001-Fall2021-Team4 in the console. `python main.py` will output the payroll to the console.
+
 # Coding Design
   Code is done in Python, following the PEP-8 standard, and uses the
   [Model-View-Controller]{https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller}
