@@ -10,6 +10,7 @@ class TimeCardRepo():
         self.timecards = []
         self.__load_repo()
 
+
     def __load_repo(self):
         with open(self.repoPath, 'r') as repo:
             for line in repo:
@@ -30,6 +31,7 @@ class TimeCardRepo():
         for timecard in self.timecards:
             if timecard.id == id:
                 return timecard
+        print(f"Failed to find: {id}")
         return None
 
 

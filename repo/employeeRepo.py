@@ -27,7 +27,7 @@ class EmployeeRepo():
         for employee in self.employees:
             if employee.id == emp_id:
                 return employee
-
+        print(f"Failed to find: {emp_id}")
         return None
 
     def get_all_employees(self):

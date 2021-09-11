@@ -38,6 +38,7 @@ class EmployeeController():
             self._EmpRepo.save_repo()
             self._EmpRepo = None
 
+    #Note, Income = [Salary, Hourly, Commission]
     def make_new_employee(self, id, name, street_address, city,
                 state, zipcode, classification, payment_Method,
                 income, route, account):
@@ -94,6 +95,13 @@ class EmployeeController():
             employee.set_income(new_payment_method)
             self._EmpRepo.update_employee(employee)
             return employee
+
+    def get_pay(self, emp_id):
+        if self._EmpRepo == None:
+            self.__no_emp_repo()
+        else:
+           return self._EmpRepo.get_one_by_id(emp_id).get_pay()
+
 
     #Call this method during make_employee()
     def _verify_employee(self):

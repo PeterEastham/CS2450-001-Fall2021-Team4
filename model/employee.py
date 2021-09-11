@@ -16,6 +16,11 @@ payment_Method: Direct Deposit/Mailed, Required
 salary: ANNUAL SALARY, Required IF classification.SALARIED
 hourly: Required IF classification.HOURLY
 commission_rate: Required IF classification.COMMISSIONED
+
+Employees are paid Bi-Monthly
+Salaried Employees receive 1/24th of Annual Salary
+Hourly Employees are paid Hourly Rate * Hour worked that bi month.
+Commissioned Employees are Salaried + Commission Fees.
 """
 from enums.classification import Classification
 from enums.paycheck_method import Paycheck_Method
@@ -33,10 +38,8 @@ class Employee:
         self.zipcode = zipcode
         self.classification = int(classification)
         self.payment_Method = int(payment_Method)
-        #Research more into Income Handling
         self.salary = 0
-        self.hourly = 0
-        self.commission_rate = 0
+        self.rate = 0
         self.route = route
         self.account = account
         self.permissions = []
@@ -44,20 +47,21 @@ class Employee:
         self.set_income(income)
 
     def set_income(self, money):
-        if self.classification == Classification.SALARIED:
+        if self.classification == Classification.SALARIED.value:
             self.salary = money[0]
-        if self.classification == Classification.HOURLY:
-            self.hourly = money[1]
-        if self.classification == Classification.COMMISSIONED:
-            self.commission_rate == money[2]
+        if self.classification == Classification.HOURLY.value:
+            self.rate = money[1]
+        if self.classification == Classification.COMMISSIONED.value:
+            self.salary = money[0]
+            self.rate = money[2]
 
     def __get_income(self):
-        if self.classification == Classification.SALARIED:
+        if self.classification == Classification.SALARIED.value:
             return self.salary
-        if self.classification == Classification.HOURLY:
-            return self.hourly
-        if self.classification == Classification.COMMISSIONED:
-            return self.commission_rate
+        if self.classification == Classification.HOURLY.value:
+            return self.rate
+        if self.classification == Classification.COMMISSIONED.value:
+            return [self.salary, self.rate]
 
     def get_pay(self):
         return [self.payment_Method, self.classification, self.__get_income()]
@@ -79,8 +83,7 @@ class Employee:
                +str(self.classification) + ","
                +str(self.payment_Method) + ","
                +str(self.salary) + ","
-               +str(self.hourly) + ","
-               +str(self.commission_rate) + ","
+               +str(self.rate) + ","
                +str(self.route) + ","
                +str(self.account) + "\n")
 
@@ -94,7 +97,6 @@ class Employee:
                +str(self.classification) + ","
                +str(self.payment_Method) + ","
                +str(self.salary) + ","
-               +str(self.hourly) + ","
-               +str(self.commission_rate) + ","
+               +str(self.rate) + ","
                +str(self.route) + ","
                +str(self.account))

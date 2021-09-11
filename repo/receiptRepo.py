@@ -30,6 +30,7 @@ class ReceiptRepo():
         for receipt in self.receipts:
             if receipt.id == id:
                 return receipt
+        print(f"Failed to find: {id}")
         return None
 
     def get_all(self):
@@ -43,3 +44,6 @@ class ReceiptRepo():
     def update_receipt(self, receipt):
         self.delete_one_by_id(receipt.id)
         self.receipts.append(receipt)
+
+    def save_repo(self):
+        pass
