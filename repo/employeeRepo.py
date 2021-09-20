@@ -9,7 +9,6 @@ import csv
 class EmployeeRepo():
 
     def __init__(self, repoPath=".//resources//employees.csv"):
-        #We will pretend like we can't use CSV()
         self.repoPath = repoPath
         self.employees = []
         self.__load_repo()
