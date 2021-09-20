@@ -83,10 +83,10 @@ class PaymentController():
 
     def _mailing_payment(self, emp_id):
         employee = self._EmpController.get_employee_by_id(emp_id)
-        return "Mailing {} to {} at {}".format("{:.2f}",
+        return "Mailing {} to {} at {}\n".format("{:.2f}",
                                         employee.name, employee.get_address())
 
     def _direct_payment(self, emp_id):
         employee = self._EmpController.get_employee_by_id(emp_id)
-        return "Transferred {} for {} to {} at {}".format("{:.2f}", employee.name,
+        return "Transferred {} for {} to {} at {}\n".format("{:.2f}", employee.name,
                                                    employee.account, employee.route)
