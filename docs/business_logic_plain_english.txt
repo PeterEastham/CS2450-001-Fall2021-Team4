@@ -1,0 +1,63 @@
+(Controllers)
+IF I want employee information I ask the employee_controller, giving it an employee number.
+  WHEN I ask for information, it searches the Repository for the employee.
+  IF it can't find the employee, it gives me nothing.
+  OTHERWISE I get the requested employee.
+
+IF I have a new employee, I give it the employee_controller.
+  THEN it verifies the employee has enough information.
+  THEN it gives it to the repository to save.
+
+IF I want payment information, I ask the payment_controller, giving it a specific employee.
+  WHEN I ask the payment_controller, it goes to the employee_controller, receipt_controller, and timecard_controller. And get the required payment information.
+  AFTER the payment_controller gets the information, it gives me back the expected pay for this pay cycle.
+
+WHEN I ask receipt_controller for a receipt, I can ask for the receipt, or the total on the receipt.
+  IF receipt_controller can't find the employee, it returns 0.
+
+WHEN I ask timecard_controller for a TimeCard, I can ask for the TimeCard, or the total hours on that timecard.
+
+IF I ask a controller for an item, if it doesn't have a repository open,
+  THEN it gives me an error.
+
+(Repositories)
+WHEN I create a repository, I tell it where to find the information.
+  WHEN it looks at the information, it assumes it is correct and formatted.
+
+WHEN I ask for an id, we check an internal list.
+  IF I can't find the id, I print to the console.
+  OTHERWISE I return the object.
+
+
+(Payment Handling | Midlevel~)
+WHEN some asks for payment information, giving a specific employee id.
+  THEN I check the CLASSIFICATION of the employee.
+  IF the employee is COMMISSIONED.
+    THEN I get the Receipt Totals and add the Salary.
+  IF the employee is SALARIED.
+    THEN I get the Salary.
+  IF the employee is HOURLY.
+    Then I get the total hours and times it by the HOURLY RATE.
+
+  THEN I return the total income for that period.
+
+IF someone asks for a payment string, giving a specific employee id.
+  I ask MYSELF for the income.
+  THEN I check the payment METHOD of the employee.
+  IF the employee is DIRECT DEPOSIT
+    THEN I get the bank information.
+    THEN I put in the income.
+    THEN I return the string.
+  IF the employee is MAIL
+    THEN I get the address information.
+    THEN I put in the income.
+    THEN I return the string.
+
+(Prototype main.py in plain english)
+WHEN I am run.
+I get all the Employees.
+I open a file.
+THEN for each employee.
+  I store their payment information.
+THEN I write it to the file.
+THEN I close.
