@@ -9,6 +9,8 @@ employees = Econ._EmpRepo.get_all_employees()
 with open("payroll.txt", 'w') as payroll:
     pay = []
     for emp in employees:
-        pay.append(Pcon.get_pay_str(emp.id))
+        pay_str = Pcon.get_pay_str(emp.id)
+        print(pay_str, end='')
+        pay.append(pay_str)
 
     payroll.writelines(pay)
