@@ -47,6 +47,18 @@ class PaymentController():
     def update_timecard_controller(self):
         self._TimeCardController = TimeCardController.start_controller()
 
+
+    #emp_list is a list of employee IDs.
+    def pay_emp_list(self, emp_list):
+        with open("payroll.txt", 'w') as payroll:
+            pay = []
+            for emp_id in emp_list:
+                pay_str = self.get_pay_str(emp_id)
+                pay.append(pay_str)
+
+            payroll.writelines(pay)
+
+
     def get_pay_str(self, emp_id):
         pay = self._EmpController.get_pay(emp_id)
         method = pay[0]
