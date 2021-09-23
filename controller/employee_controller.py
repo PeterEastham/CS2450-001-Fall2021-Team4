@@ -55,6 +55,17 @@ class EmployeeController():
         else:
             return self._EmpRepo.get_one_by_id(emp_id)
 
+    #Dictionary format is {"Name" : ID}
+    def get_all_as_dict(self):
+        if self._EmpRepo == None:
+            self.__no_emp_repo()
+        else:
+            employeeSource = self._EmpRepo.get_all_employees()
+            employee_dict = dict()
+            for employee in employeeSource:
+                employee_dict[employee.name] = employee.id
+            return employee_dict
+
     def remove_employee(self, emp_id):
         if self._EmpRepo == None:
             self.__no_emp_repo()
