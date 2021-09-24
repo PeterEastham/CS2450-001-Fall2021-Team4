@@ -43,6 +43,6 @@ class UserRepo:
 
     def save_repo(self):
         with open(self.repoPath, 'w') as repo:
-            repo.write(class_csv_headers(self.users[0]))
+            repo.write(class_csv_headers(self.users[0]).replace(",",":"))
             for user in self.users:
                 repo.write(user.save_format())

@@ -1,4 +1,4 @@
 username:password:permissions
-Admin:foobar:1,2
-Peter:password:1
-Craig:pass:1
+Peter:password:1,2,3,4,
+Test:User:
+Admin:foobar:1,2,4,

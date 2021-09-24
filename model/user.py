@@ -12,6 +12,8 @@ class User:
 
 
     def parsePermissions(self, permissions):
+        if len(permissions) == 0:
+            return list()
         permissions = permissions.split(",")
         temp = list()
         for permission in permissions:
@@ -28,5 +30,7 @@ class User:
         for permission in self.permissions:
             save += f"{permission},"
 
-        save = save[:-1]
+        if save[:-1] == ",":
+            save = save[:-1]
+        save += '\n'
         return save

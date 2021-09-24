@@ -30,3 +30,7 @@ class LoginController():
 
     def getUser(self, username):
         return self._UserRepo.get_user_by_username(username)
+
+    def stop_controller(self):
+        self._UserInstance = None
+        self._UserRepo = None
