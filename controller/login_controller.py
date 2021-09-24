@@ -7,6 +7,7 @@ As it stands, it will likely get merged with a
 
 from repo.userRepo import UserRepo
 from model.user import User
+from controller.user_controller import UserController
 
 class LoginController():
     _UserRepo = None
@@ -26,10 +27,14 @@ class LoginController():
             LoginController._UserRepo = UserRepo()
 
     def validate(self, username, password):
-        return self._UserRepo.validLogin(username, password)
+        if self._UserRepo.validLogin(username, password):
+            UC = UserController.start_controller()
+            currUser = self._UserRepo.get_user_by_username(username)
+            UC.login(currUser)
+            return True
+        else:
+            return False
 
-    def getUser(self, username):
-        return self._UserRepo.get_user_by_username(username)
 
     def stop_controller(self):
         self._UserInstance = None

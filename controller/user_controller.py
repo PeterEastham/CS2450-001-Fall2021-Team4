@@ -1,7 +1,7 @@
 """
-This class can be seen as a wrapper for the entire controller framework
-this is because we'll be routing all of the GUI functionality after
-login through this controller, which will allow us to handle permissions.
+Make sure to only import this class after a successful login. The login_controller
+is designed to pass in the current user after that, so you just need to use
+the get_controller to get the reference. And make sure to log-out a user.
 """
 from repo.userRepo import UserRepo
 from model.user import User
