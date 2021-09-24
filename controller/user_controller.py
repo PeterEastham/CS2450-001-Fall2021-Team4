@@ -13,11 +13,9 @@ class UserController:
     _UserRepo = None
 
     @staticmethod
-    def start_controller(user):
-        if type(user).__name__ != "User":
-            raise Exception("The provided user is not of type User!")
+    def start_controller():
         if UserController._UserInstance == None:
-            UserController(user)
+            UserController()
         return UserController._UserInstance
 
     @staticmethod
@@ -27,14 +25,18 @@ class UserController:
         else:
             raise Exception("Please provide the current User first")
 
-    def __init__(self, user):
+    def __init__(self):
         if UserController._UserInstance != None:
             raise Exception("This class is a Singleton!")
         else:
             UserController._UserInstance = self
-            UserController._CurrUser = user
             UserController._UserRepo = UserRepo()
 
+    def login(self, user):
+        if self._CurrUser != None:
+            raise Exception("Cannot login a user until the current user logs out.")
+        else:
+            self._CurrUser = user
 
     def create_new_user(self, username, password, permissions):
         self.check_user()
