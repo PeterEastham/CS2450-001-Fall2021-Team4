@@ -16,9 +16,16 @@ class UserController:
     def start_controller(user):
         if type(user).__name__ != "User":
             raise Exception("The provided user is not of type User!")
-        else:
+        if UserController._UserInstance == None:
             UserController(user)
         return UserController._UserInstance
+
+    @staticmethod
+    def get_controller():
+        if UserController._UserInstance != None:
+            return UserController._UserInstance
+        else:
+            raise Exception("Please provide the current User first")
 
     def __init__(self, user):
         if UserController._UserInstance != None:
