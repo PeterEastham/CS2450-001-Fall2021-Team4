@@ -1,2 +1,4 @@
-username,password,permissions
-Admin,foobar,[]
+username:password:permissions
+Admin:foobar:1,2
+Peter:password:1
+Craig:pass:1
