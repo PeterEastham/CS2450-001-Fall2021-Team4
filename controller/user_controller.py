@@ -82,6 +82,11 @@ class UserController:
 
         return self._UserRepo.get_user_by_username(username)
 
+    def get_employee_by_id(self, emp_id):
+        self.check_priviledge(Permission.CAN_VIEW_EMP.value, "View Employee")
+
+        return self._EC.get_one_by_id(emp_id)
+
     def make_payroll(self):
         self.check_priviledge(Permission.MAKE_PAYROLL.value, "Make Payroll")
         Emp_list = list(self._EC.get_all_as_dict().values())
