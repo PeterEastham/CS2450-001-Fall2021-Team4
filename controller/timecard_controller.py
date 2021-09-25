@@ -5,10 +5,12 @@ Very similar to Receipt Controller
 Potential to combine with Receipt Controller
 """
 from repo.timecardRepo import TimeCardRepo
+from service.file_helper import FileHelper
 
 class TimeCardController():
     _TimeCardRepo = None
     _TimeCardInstance = None
+    _FileHelper = None
 
     @staticmethod
     def start_controller():
@@ -21,6 +23,7 @@ class TimeCardController():
             raise Exception("This class is a singleton")
         else:
             TimeCardController._TimeCardInstance = self
+            self._FileHelper = FileHelper.get_helper()
 
     def get_timecard(self, emp_id):
         return self._TimeCardRepo.get_one_by_id(emp_id)
@@ -37,11 +40,11 @@ class TimeCardController():
     def clear_one_timecard(self, timecard_id):
         self._TimeCardRepo.delete_one_by_id(timecard_id)
 
-    def open_repo(self, repoPath):
+    def open_repo(self, relativePath):
         if self._TimeCardRepo != None:
             raise Exception("Only one Receipt Database may be open!")
         else:
-            repoPath = "./resources/timecards.csv"
+            repoPath = self._FileHelper.get_adjusted_path("./resources/timecards.csv")
             self._TimeCardRepo = TimeCardRepo(repoPath)
 
     def close_repo(self):

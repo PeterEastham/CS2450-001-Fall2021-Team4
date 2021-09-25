@@ -10,7 +10,7 @@ userRepo won't use the BaseCSVRepo just due to its current behavior.
 class UserRepo:
     #We'll include a resourceString, but this should never really change.
     #It's mostly to maintain it's format with the other repos.
-    def __init__(self, repoPath=".//resources//users.csv"):
+    def __init__(self, repoPath):
         self.repoPath = repoPath
         self.users = []
         self.__load_repo()
@@ -59,7 +59,7 @@ class UserRepo:
     #Expect the users to be inside the repo.
     def save_repo(self):
         with open(self.repoPath, 'w') as repo:
-            repo.write(class_csv_headers(self.users[0]).replace(",",":"))
+            repo.write(class_csv_headers(self.users[0]))
             for user in self.users:
                 repo.write(user.save_format())
 
@@ -67,7 +67,7 @@ class UserRepo:
     #Prevent other functions from functioning.
     def close_repo(self):
         with eopn(self.repoPath, 'w') as repo:
-            repo.write(class_csv_headers(self.users[0]).replace(",",":"))
+            repo.write(class_csv_headers(self.users[0]))
             for user in self.users:
                 repo.write(user.save_format())
 

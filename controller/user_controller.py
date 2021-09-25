@@ -8,12 +8,13 @@ from model.user import User
 from enums.permissions import Permission
 from controller.employee_controller import EmployeeController
 from controller.payment_controller import PaymentController
-
+from service.file_helper import FileHelper
 class UserController:
     #Required for Singleton Behavior
     _UserInstance = None
     _CurrUser = None
     _UserRepo = None
+    _FileHelper = None
 
     #This annotation allows us to call the function with calling __init__ first.
     @staticmethod
@@ -37,9 +38,12 @@ class UserController:
             raise Exception("This class is a Singleton!")
         else:
             UserController._UserInstance = self
-            self._UserRepo = UserRepo()
+            self._FileHelper = FileHelper.get_helper()
+            empRepoPath = self._FileHelper.get_adjusted_path(".//resources//employees.csv")
+            userRepoPath = self._FileHelper.get_adjusted_path(".//resources//users.csv")
+            self._UserRepo = UserRepo(userRepoPath)
             self._EC = EmployeeController.start_controller()
-            self._EC.open_repo(".//resources//employees.csv")
+            self._EC.open_repo(empRepoPath)
             #We'll store the User Repository here.
             #User != Employee!!!!
 

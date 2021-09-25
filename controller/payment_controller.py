@@ -18,12 +18,14 @@ from controller.receipt_controller import ReceiptController
 from controller.timecard_controller import TimeCardController
 from enums.classification import Classification
 from enums.paycheck_method import Paycheck_Method
+from service.file_helper import FileHelper
 
 class PaymentController():
     _EmpController = None
     _TimeCardController = None
     _RecController = None
     _PaymentInstance = None
+    _FileHelper = None
     #Might be useful to input a "Valid Employee" check in the EC, then allow function
     #Execution.
 
@@ -38,6 +40,7 @@ class PaymentController():
             raise Exception("This class is a singleton")
         else:
             PaymentController._PaymentInstance = self
+            self._FileHelper = FileHelper.get_helper()
             self.update_emp_controller()
             self.update_receipt_controller()
             self.update_timecard_controller()
@@ -48,16 +51,17 @@ class PaymentController():
 
     def update_receipt_controller(self):
         self._RecController = ReceiptController.start_controller()
-        self._RecController.open_repo(" ")
+        self._RecController.open_repo("")
 
     def update_timecard_controller(self):
         self._TimeCardController = TimeCardController.start_controller()
-        self._TimeCardController.open_repo(" ")
+        self._TimeCardController.open_repo("")
 
 
     #emp_list is an int list of employee IDs.
     def pay_emp_list(self, emp_list):
-        with open("payrolltest.txt", 'w') as payroll:
+        payroll_path = self._FileHelper.get_adjusted_path("payrolltest.txt")
+        with open(payroll_path, 'w') as payroll:
             pay = []
             for emp_id in emp_list:
                 pay_str = self.get_pay_str(emp_id)

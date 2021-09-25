@@ -23,5 +23,5 @@ class FileHelper:
             FileHelper._FileInstance = self
             self._basePath = basePath
 
-    def get_cwd_path(self, from_root):
+    def get_adjusted_path(self, from_root):
         return (self._basePath + from_root)

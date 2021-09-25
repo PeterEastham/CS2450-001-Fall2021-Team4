@@ -5,10 +5,12 @@ See - timecard_controller for potential ideas
 
 from model.receipt import Receipt
 from repo.receiptRepo import ReceiptRepo
+from service.file_helper import FileHelper
 
 class ReceiptController():
     _ReceiptRepo = None
     _ReceiptInstance = None
+    _FileHelper = None
 
     @staticmethod
     def start_controller():
@@ -21,12 +23,13 @@ class ReceiptController():
             raise Exception("This class is a singleton")
         else:
             ReceiptController._ReceiptInstance = self
+            self._FileHelper = FileHelper.get_helper()
 
-    def open_repo(self, repoPath):
+    def open_repo(self, relativePath):
         if self._ReceiptRepo != None:
             raise Exception("Only one Receipt Database may be open!")
         else:
-            repoPath = "./resources/receipts.csv"
+            repoPath = self._FileHelper.get_adjusted_path("./resources/receipts.csv")
             self._ReceiptRepo = ReceiptRepo(repoPath)
 
     def close_repo(self):

@@ -1,0 +1,4 @@
+This folder is designed to hold a static resource file for unit testing purposes.
+
+Payroll.txt will let us test that the payroll calculation matches the correct
+calculations from the original CS1410 Assignment.
