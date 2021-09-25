@@ -6,7 +6,7 @@ the get_controller to get the reference. And make sure to log-out a user.
 from repo.userRepo import UserRepo
 from model.user import User
 from enums.permissions import Permission
-from model.employee_controller import EmployeeController
+from controller.employee_controller import EmployeeController
 
 class UserController:
     #Required for Singleton Behavior
