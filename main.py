@@ -1,3 +1,6 @@
+import sys
+
+from service.file_helper import FileHelper
 from view.login_page import main as main
 """
 We'll use this as an entry point.
@@ -13,4 +16,5 @@ def start_controller(baseString = "."):
 """
 
 if __name__ == "__main__":
+    FileHelper.start_helper(sys.argv[0][:-7])
     main()

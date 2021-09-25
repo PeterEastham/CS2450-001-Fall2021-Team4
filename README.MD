@@ -2,7 +2,7 @@
  Repository for Team 2 Now. Primarily code, and its associated documentation. Repository name will not be changed, as I cannot be bothered to.
 
 # How to Run
-  Navigate to the folder CS2450-001-Fall2021-Team2 in the console. `python main.py` will output the payroll to the console, and to the file "payroll.txt" in the folder.
+  Open the CS2450-001-Fall2021-Team2 folder anywhere you want! Double click main.py to run.
 
 # Coding Design
   Code is done in Python, following the PEP-8 standard, and uses the
@@ -18,11 +18,9 @@
 ## OOP or Functional?
   The "backend" will primarily be functional, this provides the easiest testing
   ability. We see this approach in the controller level. Where we treat them as
-  simply functions that we can import to use*
-
-  *Singleton approach to the Repositories will aid this, needs implementation.
+  simply functions that we can import to use
 
 ## Credits
-  Original Source Code is based on the source code provided on the Canvas Page.
-  That code was designed and made by both Dana Doggett and Chuck Allison. With
-  additional code provided by Craig Sharp (Professor).
+  Peter Eastham for Design and Business Logic Implementation.
+  John-Morgan Dunham for GUI Development
+  The rest of the team for documentation.
