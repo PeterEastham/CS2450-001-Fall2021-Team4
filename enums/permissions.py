@@ -1,6 +1,9 @@
 """
 Employees will keep an internal Array of Permissions.
-We will use this to improve Code Readability
+Easiest to use an Enum to keep track of differences.
+POTENTIALLY could put the permissions into a
+.csv database so you could give them a display name.
+Likely will just stick that as a dictionary in this file though.
 """
 
 from enum import Enum, unique

@@ -2,6 +2,7 @@
 Handles Time Card Operations.
 
 Very similar to Receipt Controller
+Potential to combine with Receipt Controller
 """
 from repo.timecardRepo import TimeCardRepo
 
@@ -48,3 +49,6 @@ class TimeCardController():
         else:
             self._TimeCardRepo.save_repo()
             self._TimeCardRepo = None
+
+    def __no_timecard_repo(self):
+        raise Exception("You must open the Repository first!")

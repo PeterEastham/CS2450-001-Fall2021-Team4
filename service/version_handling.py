@@ -9,3 +9,14 @@ def class_csv_headers(object):
         properties += ","
 
     return properties[:-1] + "\n"
+
+
+"""
+Employee mapper Option
+
+header_to_version = {
+    "header_str" : "emp_1",
+    "other_header" : "emp_1_1"
+    ----------etc-------------
+}
+"""

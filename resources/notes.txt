@@ -6,3 +6,21 @@ be viewed similar to a SQL Server.
 
 BY EXTENSION
 Payment Logs should not be placed in here. Ever.
+
+Question for Shareholder,
+Are all users employees of the company? If yes, should we allow employees to be
+basic access? Psuedo code is something like.
+
+if emp_id != ExistingUser_id[]:
+  new_user = UC.make_employee_user(emp_id)
+  UserRepo.save(new_user)
+
+And then the user save format would swap to the following
+
+username:password:permission1,permission2:employee_id
+
+UC.make_employee_user(emp_id) would be something like the following.
+
+newUser = User(username=emp.name, password=emp.id)
+self.give_basic_permissions(newUser)
+return newUser
