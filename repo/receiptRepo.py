@@ -3,6 +3,7 @@ Handles the Receipt "Repository", which is really a CSV
 Data format is really similar to Timecards, potential abstraction?
 """
 from model.receipt import Receipt
+from service.file_helper import FileHelper as FH
 
 #If we archive receipts, maybe save like time:id:value,value? Then if we try to
 #Read it like it's unpaid, we'll get an error.
@@ -10,9 +11,11 @@ class ReceiptRepo():
 
     #Since we might look into archiving the paid Receipts, we'll pass
     #in the repository path.
-    def __init__(self, resourceString=".//resources//receipts.csv"):
+    def __init__(self, repoPath=".//resources//receipts.csv"):
+
+        file_aid = FH.get_helper()
+        self.repoPath = file_aid.get_cwd_path(repoPath)
         self.receipts = []
-        self.repoPath = resourceString
         self.__load_repo()
 
     #Missing bad data handling.

@@ -5,13 +5,15 @@ Might need to create a mapper in /service if model changes are extreme.
 
 from model.employee import Employee
 from service.version_handling import class_csv_headers
+from service.file_helper import FileHelper as FH
 import csv
 
 class EmployeeRepo():
     #Note, this repoPath CAN change, but should be verified before passing in.
     #We'll assume the file holds valid Employee Data.
     def __init__(self, repoPath=".//resources//employees.csv"):
-        self.repoPath = repoPath
+        file_aid = FH.get_helper()
+        self.repoPath = file_aid.get_cwd_path(repoPath)
         self.employees = []
         self.__load_repo()
 

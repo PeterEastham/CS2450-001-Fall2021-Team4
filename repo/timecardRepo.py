@@ -2,11 +2,13 @@
 Handles the Timecard "Repository", which is really a CSV
 """
 from model.timecard import Timecard
+from service.file_helper import FileHelper as FH
 #Might be able to merge with receipt?
 class TimeCardRepo():
 
-    def __init__(self, resourcesString=".//resources//timecards.csv"):
-        self.repoPath = resourcesString
+    def __init__(self, repoPath=".//resources//timecards.csv"):
+        file_aid = FH.get_helper()
+        self.repoPath = file_aid.get_cwd_path(repoPath)
         self.timecards = []
         self.__load_repo()
         #self.type = Enum.Payment_Type(TimeCard/Receipt)

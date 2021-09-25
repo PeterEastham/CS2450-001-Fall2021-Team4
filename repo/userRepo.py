@@ -1,6 +1,7 @@
 import csv
 from model.user import User
 from service.version_handling import class_csv_headers
+from service.file_helper import FileHelper as FH
 
 
 """
@@ -12,9 +13,10 @@ it uses the provided information to handle that?
 class UserRepo:
     #We'll include a resourceString, but this should never really change.
     #It's mostly to maintain it's format with the other repos.
-    def __init__(self, resourceString=".//resources//users.csv"):
+    def __init__(self, repoPath=".//resources//users.csv"):
+        file_aid = FH.get_helper()
+        self.repoPath = file_aid.get_cwd_path(repoPath)
         self.users = []
-        self.repoPath = resourceString
         self.__load_repo()
 
     #Private Method.
