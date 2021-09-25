@@ -1,16 +1,17 @@
-from controller import *
-from service.version_handling import class_csv_headers as cch
+from view.login_page import LoginPage
+"""
+We'll use this as an entry point.
+Maybe we use this to figure out the target directory so the
+user can run from anywhere?
 
-Econ = EC.start_controller()
-Pcon = PC.start_controller()
-employees = Econ._EmpRepo.get_all_employees()
+Something like args[0].split("/")[:-1].join("/")
+and pass that to well... another controller XD
+File_Path_Controller.start_controller(pathStr)
 
+def start_controller(baseString = "."):
+    #singleton
+"""
 
-with open("payroll.txt", 'w') as payroll:
-    pay = []
-    for emp in employees:
-        pay_str = Pcon.get_pay_str(emp.id)
-        print(pay_str, end='')
-        pay.append(pay_str)
-
-    payroll.writelines(pay)
+if __name__ == "__main__":
+    LoginPage.main()
+    

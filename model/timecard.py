@@ -1,6 +1,5 @@
 """
-Getters/Setters for the Timecard Data Object.
-This class DOES NOT COMPUTE TOTAL HOURS WORKED!
+Almost the same as Receipt-See it.
 """
 
 class Timecard():

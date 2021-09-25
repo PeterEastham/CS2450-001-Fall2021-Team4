@@ -1,5 +1,6 @@
 """
 Controller for Receipts
+See - timecard_controller for potential ideas
 """
 
 from model.receipt import Receipt
@@ -50,11 +51,12 @@ class ReceiptController():
         receipt = self._ReceiptRepo.get_one_by_id(emp_id)
         if receipt == None:
             return 0
-            
+
         return receipt.get_total_costs()
 
     def clear_one_receipt(self, emp_id):
         self._ReceiptRepo.delete_one_by_id(emp_id)
 
+    #Need to inject this into each function. Can we make a header do that for us?
     def __no_receipt_repo(self):
         raise Exception("You need to open a Repository before using this!")
