@@ -1,11 +1,13 @@
 import tkinter as tk
 from tkinter import ttk
+from controller.login_controller import LoginController
 
 
 class LoginPage(tk.Tk):
     """Class for the login page"""
-    def __init__(self):
+    def __init__(self, LoginCon):
         super().__init__()
+        self.LC = LoginCon
 
         self.geometry("300x100")
         self.title('Login')
@@ -17,6 +19,9 @@ class LoginPage(tk.Tk):
 
         self.create_widgets()
 
+    def test(self):
+        print(self.LC.validate(self.username_input.get(),self.password_input.get()))
+
     def create_widgets(self):
         """Create widgets for username, password and login button"""
 
@@ -24,27 +29,29 @@ class LoginPage(tk.Tk):
         username_label = ttk.Label(self, text="Username:")
         username_label.grid(column=0, row=0, sticky=tk.W, padx=5, pady=5)
 
-        username_entry = ttk.Entry(self)
+
+        self.username_input = tk.StringVar(value="")
+        username_entry = ttk.Entry(self, textvariable=self.username_input)
         username_entry.grid(column=1, row=0, sticky=tk.E, padx=5, pady=5)
 
         # password
         password_label = ttk.Label(self, text="Password:")
         password_label.grid(column=0, row=1, sticky=tk.W, padx=5, pady=5)
 
-        password_entry = ttk.Entry(self,  show="*")
+        self.password_input = tk.StringVar(value="")
+        password_entry = ttk.Entry(self,  show="*", textvariable=self.password_input)
         password_entry.grid(column=1, row=1, sticky=tk.E, padx=5, pady=5)
 
         # login button
-        login_button = ttk.Button(self, text="Login")
+        login_button = ttk.Button(self, text="Login", command=self.test)
         login_button.grid(column=1, row=3, sticky=tk.E, padx=5, pady=5)
 
 
 def main():
-    app = LoginPage()
+    LoginCon = LoginController.start_controller()
+    app = LoginPage(LoginCon)
     app.mainloop()
 
 
 if __name__ == "__main__":
     main()
-
-

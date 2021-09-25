@@ -1,4 +1,4 @@
-from view.login_page import LoginPage
+from view.login_page import main as main
 """
 We'll use this as an entry point.
 Maybe we use this to figure out the target directory so the
@@ -13,5 +13,4 @@ def start_controller(baseString = "."):
 """
 
 if __name__ == "__main__":
-    LoginPage.main()
-    
+    main()

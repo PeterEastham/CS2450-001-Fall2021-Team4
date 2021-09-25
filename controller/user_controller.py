@@ -6,6 +6,7 @@ the get_controller to get the reference. And make sure to log-out a user.
 from repo.userRepo import UserRepo
 from model.user import User
 from enums.permissions import Permission
+from model.employee_controller import EmployeeController
 
 class UserController:
     #Required for Singleton Behavior
@@ -35,7 +36,9 @@ class UserController:
             raise Exception("This class is a Singleton!")
         else:
             UserController._UserInstance = self
-            UserController._UserRepo = UserRepo()
+            self._UserRepo = UserRepo()
+            self._EC = EmployeeController.start_controller()
+            self._EC.open_repo(".//resources//employees.csv")
             #We'll store the User Repository here.
             #User != Employee!!!!
 
@@ -43,10 +46,16 @@ class UserController:
         if self._CurrUser != None:
             raise Exception("Cannot login a user until the current user logs out.")
         #Verify the user is a User Object
-        else if (type(user).__name__ != "User"):
+        if (type(user).__name__ != "User"):
             raise Exception("This is not a user object!")
-        else:
-            self._CurrUser = user
+
+        self._CurrUser = user
+
+    def get_employee_list(self):
+        self.check_priviledge(Permission.CAN_VIEW_EMP.value, "View Employees")
+
+        return self._EC.get_all_as_dict()
+
 
     #Adds to the UserRepo, we make sure to save the repo on every call.
     def create_new_user(self, username, password, permissions):
