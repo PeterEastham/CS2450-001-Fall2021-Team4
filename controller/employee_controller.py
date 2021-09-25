@@ -53,9 +53,9 @@ class EmployeeController():
         if self._EmpRepo == None:
             self.__no_emp_repo()
         else:
-            self._EmpRepo.add_one(id, name, street_address, city, state,
+            self._EmpRepo.add_one(Employee(id, name, street_address, city, state,
                                   zipcode, classification, payment_Method,
-                                  income, route, account)
+                                  income, route, account))
 
     #We'll stick to emp_id since Employee.name might not be unique.
     def get_employee_by_id(self, emp_id):
@@ -69,7 +69,7 @@ class EmployeeController():
         if self._EmpRepo == None:
             self.__no_emp_repo()
         else:
-            employeeSource = self._EmpRepo.get_all_employees()
+            employeeSource = self._EmpRepo.get_all()
             employee_dict = dict()
             for employee in employeeSource:
                 employee_dict[employee.name] = employee.id
@@ -92,7 +92,7 @@ class EmployeeController():
             employee.city = new_city
             employee.state = new_state
             employee.zipcode = new_zipcode
-            self._EmpRepo.update_employee(employee)
+            self._EmpRepo.update_object(employee)
             return employee
             #Rework the flow to be something like.
             #GUI.on_save() -> EC.get_employee_by_id(emp_id)
@@ -111,7 +111,7 @@ class EmployeeController():
             self.__no_emp_repo()
         else:
             employee.payment_Method = new_payment_method
-            self._EmpRepo.update_employee(employee)
+            self._EmpRepo.update_object(employee)
             return employee
             #See note on update_address()
 
@@ -122,7 +122,7 @@ class EmployeeController():
             self.__no_emp_repo()
         else:
             employee.set_income(new_payment_method)
-            self._EmpRepo.update_employee(employee)
+            self._EmpRepo.update_object(employee)
             return employee
 
     #def predict_pay(new_classification)? Expected Values should ~= Old Values.

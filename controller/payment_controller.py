@@ -48,14 +48,16 @@ class PaymentController():
 
     def update_receipt_controller(self):
         self._RecController = ReceiptController.start_controller()
+        self._RecController.open_repo(" ")
 
     def update_timecard_controller(self):
         self._TimeCardController = TimeCardController.start_controller()
+        self._TimeCardController.open_repo(" ")
 
 
     #emp_list is an int list of employee IDs.
     def pay_emp_list(self, emp_list):
-        with open("payroll.txt", 'w') as payroll:
+        with open("payrolltest.txt", 'w') as payroll:
             pay = []
             for emp_id in emp_list:
                 pay_str = self.get_pay_str(emp_id)

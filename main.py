@@ -2,6 +2,8 @@ import sys
 
 from service.file_helper import FileHelper
 from view.login_page import main as main
+
+# from tests import payroll_test
 """
 We'll use this as an entry point.
 Maybe we use this to figure out the target directory so the

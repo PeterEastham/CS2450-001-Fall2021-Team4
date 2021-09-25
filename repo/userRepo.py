@@ -5,24 +5,20 @@ from service.file_helper import FileHelper as FH
 
 
 """
-Of all the modules, the Repo module could use a Parent Class.
-I need to study up on inheritance, could be useful to use a
-factory construction pattern? Pass it the object, and then
-it uses the provided information to handle that?
+userRepo won't use the BaseCSVRepo just due to its current behavior.
 """
 class UserRepo:
     #We'll include a resourceString, but this should never really change.
     #It's mostly to maintain it's format with the other repos.
     def __init__(self, repoPath=".//resources//users.csv"):
-        file_aid = FH.get_helper()
-        self.repoPath = file_aid.get_cwd_path(repoPath)
+        self.repoPath = repoPath
         self.users = []
         self.__load_repo()
 
     #Private Method.
     def  __load_repo(self):
         with open(self.repoPath, 'r') as repo:
-            csvReader = csv.DictReader(repo, delimiter=":")
+            csvReader = csv.DictReader(repo)
             for row in csvReader:
                 print(row)
                 self.users.append(User( row['username'], row['password'],
@@ -60,7 +56,7 @@ class UserRepo:
         self.add_one(updated_user)
 
     #We'll keep all the users, since in theory we shouldn't
-    #Expect the users to inside the repo.
+    #Expect the users to be inside the repo.
     def save_repo(self):
         with open(self.repoPath, 'w') as repo:
             repo.write(class_csv_headers(self.users[0]).replace(",",":"))

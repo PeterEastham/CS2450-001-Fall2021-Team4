@@ -29,10 +29,10 @@ class TimeCardController():
         return self._TimeCardRepo.get_one_by_id(emp_id).get_total_hours()
 
     def update_timecard(self, changed_timecard):
-        self._TimeCardRepo.update_timecard(changed_timecard)
+        self._TimeCardRepo.update_object(changed_timecard)
 
     def add_timecard(self, new_timecard):
-        self._TimeCardrepo.update_timecard(new_timecard)
+        self._TimeCardrepo.update_object(new_timecard)
 
     def clear_one_timecard(self, timecard_id):
         self._TimeCardRepo.delete_one_by_id(timecard_id)
@@ -41,6 +41,7 @@ class TimeCardController():
         if self._TimeCardRepo != None:
             raise Exception("Only one Receipt Database may be open!")
         else:
+            repoPath = "./resources/timecards.csv"
             self._TimeCardRepo = TimeCardRepo(repoPath)
 
     def close_repo(self):

@@ -7,6 +7,7 @@ from repo.userRepo import UserRepo
 from model.user import User
 from enums.permissions import Permission
 from controller.employee_controller import EmployeeController
+from controller.payment_controller import PaymentController
 
 class UserController:
     #Required for Singleton Behavior
@@ -77,6 +78,14 @@ class UserController:
 
         return self._UserRepo.get_user_by_username(username)
 
+    def make_payroll(self):
+        self.check_priviledge(Permission.MAKE_PAYROLL.value, "Make Payroll")
+        Emp_list = list(self._EC.get_all_as_dict().values())
+        PCon = PaymentController.start_controller()
+        PCon.pay_emp_list(Emp_list)
+
+
+
     #We've include self.check_user() since it would be called before this anyway.
     def check_priviledge(self, permission_value, permission_error):
         self.check_user()
@@ -86,6 +95,8 @@ class UserController:
     def check_user(self):
         if self._CurrUser == None:
             raise Exception("There is currently no user logged in!")
+
+
 
     #ANYTIME YOU NO LONGER KNOW THE USER
     #CALL THIS FUNCTION

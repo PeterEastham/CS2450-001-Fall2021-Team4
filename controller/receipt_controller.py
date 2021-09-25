@@ -26,6 +26,7 @@ class ReceiptController():
         if self._ReceiptRepo != None:
             raise Exception("Only one Receipt Database may be open!")
         else:
+            repoPath = "./resources/receipts.csv"
             self._ReceiptRepo = ReceiptRepo(repoPath)
 
     def close_repo(self):
@@ -39,10 +40,10 @@ class ReceiptController():
         return self._ReceiptRepo.get_one_by_id(emp_id)
 
     def update_receipt(self, changed_receipt):
-        self._ReceiptRepo.update_receipt(changed_receipt)
+        self._ReceiptRepo.update_object(changed_receipt)
 
     def add_receipt(self, new_receipt):
-        self._ReceiptRepo.update_receipt(new_receipt)
+        self._ReceiptRepo.update_object(new_receipt)
 
     def get_receipt_total(self, emp_id):
         if self._ReceiptRepo == None:
