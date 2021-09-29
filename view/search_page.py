@@ -34,16 +34,16 @@ class EmployeeSearchPage(tk.Tk):
         for stuff in range(1, 100):
             self.left_list_box.insert(stuff, f"TEST {stuff}")
 
-        # left side scroll bar
+        # scroll bar for left side list box
         left_scrollbar = tk.Scrollbar(self)
         left_scrollbar.grid(column=0, row=2, sticky="NSE")
         left_scrollbar.config(command=self.left_list_box.yview)
 
-        # Add button
+        # add button
         add_button = ttk.Button(self, text="Add->")
         add_button.grid(column=1, row=1, sticky="N")
 
-        # Remove Button
+        # remove Button
         remove_button = ttk.Button(self, text="<-Remove")
         remove_button.grid(column=1, row=2, sticky="S")
 
@@ -51,6 +51,7 @@ class EmployeeSearchPage(tk.Tk):
         self.right_list_box = tk.Listbox(self)
         self.right_list_box.grid(column=2, row=2, sticky="NS")
 
+        # scroll bar for right side list box
         right_scrollbar = tk.Scrollbar(self)
         right_scrollbar.grid(column=2, row=2, stick="NSE")
         right_scrollbar.config(command=self.right_list_box.yview)
@@ -59,14 +60,15 @@ class EmployeeSearchPage(tk.Tk):
         view_button = ttk.Button(self, text="View\nEmployee")
         view_button.grid(column=3, row=1, sticky="N", padx=40)
 
-        # test
+        # pay button
         pay_button = ttk.Button(self, text="Pay\nEmployees")
         pay_button.grid(column=3, row=2, sticky="S", padx=30)
 
+        # close button
         close_button = ttk.Button(self, text="Close")
         close_button.grid(column=3, row=2, padx=30)
         
-        #login page
+        # logout button
         logout_button = ttk.Button(self, text="Logout")
         logout_button.grid(column=3, row=2, sticky="N", pady=30)
 
