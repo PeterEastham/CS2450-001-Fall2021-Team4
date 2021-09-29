@@ -60,14 +60,15 @@ class EmployeeSearchPage(tk.Tk):
         view_button.grid(column=3, row=1, sticky="N", padx=40)
 
         # test
-        test = ttk.Button(self, text="Test1")
-        test.grid(column=3, row=2, sticky="S", padx=30)
+        pay_button = ttk.Button(self, text="Pay\nEmployees")
+        pay_button.grid(column=3, row=2, sticky="S", padx=30)
 
-        test2 = ttk.Button(self, text="Test2")
-        test2.grid(column=3, row=2, padx=30)
-
-        test3 = ttk.Button(self, text="Logout")
-        test3.grid(column=3, row=2, sticky="N", pady=30)
+        close_button = ttk.Button(self, text="Close")
+        close_button.grid(column=3, row=2, padx=30)
+        
+        #login page
+        logout_button = ttk.Button(self, text="Logout")
+        logout_button.grid(column=3, row=2, sticky="N", pady=30)
 
 
 
