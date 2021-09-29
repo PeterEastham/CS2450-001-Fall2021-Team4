@@ -31,6 +31,8 @@ class EmployeeSearchPage(tk.Tk):
         # left side list box
         self.left_list_box = tk.Listbox(self)
         self.left_list_box.grid(column=0, row=2)
+        
+        # Test example to populate the left side list box!!!
         for stuff in range(1, 100):
             self.left_list_box.insert(stuff, f"TEST {stuff}")
 
