@@ -56,7 +56,7 @@ class UserController:
 
         self._CurrUser = user
 
-    def get_employee_list(self):
+    def get_employee_dict(self):
         self.check_priviledge(Permission.CAN_VIEW_EMP.value, "View Employees")
 
         return self._EC.get_all_as_dict()

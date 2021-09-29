@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from controller.user_controller import UserController
 
 
 class EmployeeSearchPage(tk.Tk):
@@ -10,7 +11,7 @@ class EmployeeSearchPage(tk.Tk):
         self.geometry("550x250")
         self.title('Employee Search')
         self.resizable(0, 0)
-
+        self.UC = UserController.get_controller()
         # grid config
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=3)
@@ -31,10 +32,12 @@ class EmployeeSearchPage(tk.Tk):
         # left side list box
         self.left_list_box = tk.Listbox(self)
         self.left_list_box.grid(column=0, row=2)
-        
+
         # Test example to populate the left side list box!!!
-        for stuff in range(1, 100):
-            self.left_list_box.insert(stuff, f"TEST {stuff}")
+        self.emp_dict = self.UC.get_employee_dict()
+
+        for index, emp in enumerate(self.emp_dict):
+            self.left_list_box.insert(index, emp)
 
         # scroll bar for left side list box
         left_scrollbar = tk.Scrollbar(self)
@@ -69,7 +72,7 @@ class EmployeeSearchPage(tk.Tk):
         # close button
         close_button = ttk.Button(self, text="Close")
         close_button.grid(column=3, row=2, padx=30)
-        
+
         # logout button
         logout_button = ttk.Button(self, text="Logout")
         logout_button.grid(column=3, row=2, sticky="N", pady=30)
@@ -84,4 +87,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
