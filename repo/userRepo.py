@@ -22,7 +22,7 @@ class UserRepo:
             for row in csvReader:
                 print(row)
                 self.users.append(User( row['username'], row['password'],
-                                        row['permissions'] ) )
+                                        row['employee_id'],row['permissions'] ) )
 
     #LoginController.validate() wraps this.
     def validLogin(self, username, password):
@@ -66,7 +66,7 @@ class UserRepo:
     #More formal version of save_repo(), but we empty self.users to
     #Prevent other functions from functioning.
     def close_repo(self):
-        with eopn(self.repoPath, 'w') as repo:
+        with open(self.repoPath, 'w') as repo:
             repo.write(class_csv_headers(self.users[0]))
             for user in self.users:
                 repo.write(user.save_format())

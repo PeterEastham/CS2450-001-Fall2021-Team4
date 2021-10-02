@@ -5,9 +5,10 @@ It also allows us to not need to read in the Employee Database until we have to.
 """
 class User:
 
-    def __init__(self, username, password, permissions):
+    def __init__(self, username, password, employee_id, permissions):
         self.username = username
         self.password = password
+        self.employee_id = employee_id
         self.permissions = self.parsePermissions(permissions)
 
 
@@ -15,6 +16,8 @@ class User:
     def has_permission(self, permission):
         return permission in self.permissions
 
+    def get_id(self):
+        return employee_id
 
     #Allow permissions to be a pre-computed int list?
     def parsePermissions(self, permissions):
