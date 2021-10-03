@@ -28,6 +28,7 @@ class EmployeeFactory():
         base['last_name'] = names[1]
 
         base["archived"] = False
+        base["imported"] = True
         base["street_address"] = dict_row["Address"]
         base["city"] = dict_row["City"]
         base["state"] = dict_row["State"]
@@ -47,13 +48,14 @@ class EmployeeFactory():
             "id" : None,
             "first_name" : None,
             "last_name" : None,
-            "archived" : None,
+            "archived" : False,
             "social_security" : None,
             "title" : None,
             "department" : None,
             "office_email" : None,
             "office_phone" : None,
             "start_date" : None,
+            "imported" : False,
             "street_address" : None,
             "city" : None,
             "state" : None,

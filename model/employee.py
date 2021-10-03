@@ -6,16 +6,24 @@ Function that the Repository code will use.
 
 Properties
 id: Employee IDs, Required
-name: Required
-street_address: Required
-city: Required
-state: Required
-zipcode: Required
-classification: Salaried/Commissioned/Hourly, Required
-payment_Method: Direct Deposit/Mailed, Required
-salary: ANNUAL SALARY, Required IF classification.SALARIED
-hourly: Required IF classification.HOURLY
-commission_rate: Required IF classification.COMMISSIONED
+first_name: String, Required
+last_name: String, Required
+archived: Boolean, Required
+social_security: String <###-##-###>, Required
+title: String, Required
+department: String, Required
+office_email: String <john@email.com>, Required if no office_phone
+office_phone: String <(###) ###-####>, Required if no office_email
+start_date: String <MM/DD/YYYY>, Required
+imported: Boolean, Required: Used to swap "Start Date" to "Imported Date" if needs be
+street_address: String, Required
+city: String, Required
+state: String, Required
+zipcode: String, Required, Can be Long Postal Code, or Shorten Zip code
+classification: Int - Maps to Classification Enum, Required
+payment_Method: Int - Maps to payment_Method Enum, Required
+salary: Double - ANNUAL SALARY, Required FOR Salaried/Commissioned
+rate: Double - Hourly/Commission, Required FOR Commisioned/Hourly
 
 Employees are paid Bi-Monthly
 Salaried Employees receive 1/24th of Annual Salary
@@ -38,6 +46,7 @@ class Employee:
         self.office_email = input_dictionary["office_email"]
         self.office_phone = input_dictionary["office_phone"]
         self.start_date = input_dictionary["start_date"]
+        self.imported = input_dictionary["imported"]
         self.street_address = input_dictionary["street_address"]
         self.city = input_dictionary["city"]
         self.state = input_dictionary["state"]

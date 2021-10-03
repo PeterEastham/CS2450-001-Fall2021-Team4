@@ -76,52 +76,11 @@ class EmployeeController():
         else:
             self._EmpRepo.remove_one_by_id(emp_id)
 
-    #Validate input?
-    def update_address(self, employee, new_street_address, new_city, new_state,
-                       new_zipcode):
+    def update_employee(self, changed_employee):
         if self._EmpRepo == None:
             self.__no_emp_repo()
         else:
-            employee.street_address = new_street_address
-            employee.city = new_city
-            employee.state = new_state
-            employee.zipcode = new_zipcode
-            self._EmpRepo.update_object(employee)
-            return employee
-            #Rework the flow to be something like.
-            #GUI.on_save() -> EC.get_employee_by_id(emp_id)
-            #Then have this return true/false?
-
-    #TODO, implement XD
-    def update_classification(self):
-        if self._EmpRepo == None:
-            self.__no_emp_repo()
-        else:
-            pass
-
-    #Needs validation to check for bank information if method == Direct Deposit
-    def update_payment_method(self, employee, new_payment_method):
-        if self._EmpRepo == None:
-            self.__no_emp_repo()
-        else:
-            employee.payment_Method = new_payment_method
-            self._EmpRepo.update_object(employee)
-            return employee
-            #See note on update_address()
-
-
-    #Noted in the employee.py file, but it might be worth caching the old value.
-    def update_payment_rate(self, employee, new_payment_rate):
-        if self._EmpRepo == None:
-            self.__no_emp_repo()
-        else:
-            employee.set_income(new_payment_method)
-            self._EmpRepo.update_object(employee)
-            return employee
-
-    #def predict_pay(new_classification)? Expected Values should ~= Old Values.
-    #Examples of Salary -> Hourly. Salary / 2000 = Hourly
-    #Reverse holds true as well.
+            self._EmpRepo.update_object(changed_employee)
 
 
     def get_pay(self, emp_id):
@@ -130,19 +89,6 @@ class EmployeeController():
         else:
            return self._EmpRepo.get_one_by_id(emp_id).get_pay()
 
-
-    #Call this method during make_employee()
-    def _verify_employee(self):
-        pass
-
-    #We'll put these here, _verify_employee should use them, but the update methods
-    #Should use this as well.
-    def _verify_address(self):
-        pass
-
-    #Figure out how Routing/Banking Numbers are composed.
-    def _verify_banking(self):
-        pass
 
     #Can we stick this into an annotation?
     def __no_emp_repo(self):

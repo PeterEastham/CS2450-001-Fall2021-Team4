@@ -6,15 +6,12 @@ from view.login_page import main as main
 # from tests import payroll_test
 """
 We'll use this as an entry point.
-Maybe we use this to figure out the target directory so the
-user can run from anywhere?
 
-Something like args[0].split("/")[:-1].join("/")
-and pass that to well... another controller XD
-File_Path_Controller.start_controller(pathStr)
-
-def start_controller(baseString = "."):
-    #singleton
+#TODO.
+Initialize all the objects we'll need.
+Validators
+Log-in Controller is currently handled by the
+Login Page, but we might look into changing that.
 """
 
 if __name__ == "__main__":
