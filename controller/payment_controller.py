@@ -119,9 +119,9 @@ class PaymentController():
     def _mailing_payment(self, emp_id):
         employee = self._EmpController.get_employee_by_id(emp_id)
         return "Mailing {} to {} at {}\n".format("{:.2f}", #.2f means a floating point rounded to 2 digits.
-                                        employee.name, employee.get_address())
+                                        employee.get_full_name(), employee.get_address())
 
     def _direct_payment(self, emp_id):
         employee = self._EmpController.get_employee_by_id(emp_id) #See Above.
-        return "Transferred {} for {} to {} at {}\n".format("{:.2f}", employee.name,
+        return "Transferred {} for {} to {} at {}\n".format("{:.2f}", employee.get_full_name(),
                                                    employee.account, employee.route)

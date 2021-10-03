@@ -54,6 +54,10 @@ class BaseCSVRepo(ABC):
             for object in save_objects:
                 export_loc.write(object)
 
+
+    def make_header_from_keys(self, dictionary):
+        return ",".join(list(dictionary.keys()))
+
     """
     This function should return a list with each index being a new line to write to
     the ouput file. If you odn't want CSV headers for example.

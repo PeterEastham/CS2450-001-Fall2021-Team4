@@ -1,5 +1,15 @@
 import re
 
+
+def sub_emp_id_dict(dictionary, search_string):
+    if search_string.isalpha():
+        return sub_dict_from_keys(dictionary, search_string)
+    elif search_string.isdigit():
+        return sub_dict_from_values(dictionary, search_string)
+    else:
+        return dictionary
+
+
 def sub_dict_from_keys(dictionary, search_string):
     subset = _remaker(search_string)
     return {k:v for (k, v) in dictionary.items() if subset.search(k) != None}

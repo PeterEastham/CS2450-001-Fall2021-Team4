@@ -38,7 +38,7 @@ class EmployeeController():
         else:
             self._EmpRepo = EmployeeRepo(repoPath)
 
-    #Create an export_repo(str) to meet Shareholder Requirements.
+    #Created an to meet Shareholder Requirements.
     def close_repo(self):
         if self._EmpRepo == None:
             self.__no_emp_repo()
@@ -47,15 +47,9 @@ class EmployeeController():
             self._EmpRepo = None
 
     #Note, Income = [Salary, Hourly, Commission]
-    def make_new_employee(self, id, name, street_address, city,
-                state, zipcode, classification, payment_Method,
-                income, route, account):
-        if self._EmpRepo == None:
-            self.__no_emp_repo()
-        else:
-            self._EmpRepo.add_one(Employee(id, name, street_address, city, state,
-                                  zipcode, classification, payment_Method,
-                                  income, route, account))
+    #NEED TO REDO THIS
+    def make_new_employee(self, dict_object):
+        pass
 
     #We'll stick to emp_id since Employee.name might not be unique.
     def get_employee_by_id(self, emp_id):
@@ -72,7 +66,7 @@ class EmployeeController():
             employeeSource = self._EmpRepo.get_all()
             employee_dict = dict()
             for employee in employeeSource:
-                employee_dict[employee.name] = employee.id
+                employee_dict[employee.get_reversed_name()] = employee.id
             return employee_dict
 
     #UserController should wrap this.

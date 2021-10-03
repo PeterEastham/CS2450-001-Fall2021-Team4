@@ -1,6 +1,3 @@
-from model import *
-
-
 #Gets all the Properties of a Class, Coverts it to a CSV, and returns that string.
 def class_csv_headers(object):
     properties = ""
@@ -11,12 +8,8 @@ def class_csv_headers(object):
     return properties[:-1] + "\n"
 
 
-"""
-Employee mapper Option
 
 header_to_version = {
-    "header_str" : "emp_1",
-    "other_header" : "emp_1_1"
-    ----------etc-------------
+    "ID,Name,Address,City,State,Zip,Classification,PayMethod,Salary,Hourly,Commission,Route,Account" : "emp_1.0",
+    "id,first_name,last_name,archived,social_security,title,department,office_email,office_phone,start_date,street_address,city,state,zipcode,classification,payment_Method,salary,rate,route,account,valid" : "emp_1.3"
 }
-"""
