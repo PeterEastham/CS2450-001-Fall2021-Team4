@@ -20,7 +20,6 @@ class UserRepo:
         with open(self.repoPath, 'r') as repo:
             csvReader = csv.DictReader(repo)
             for row in csvReader:
-                print(row)
                 self.users.append(User( row['username'], row['password'],
                                         row['employee_id'],row['permissions'] ) )
 

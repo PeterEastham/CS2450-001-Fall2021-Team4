@@ -32,7 +32,6 @@ Commissioned Employees are Salaried + Commission Fees.
 """
 from enums.classification import Classification
 from enums.paycheck_method import Paycheck_Method
-# from validator.employee_validator import EmployeeValidator
 import re
 #Bonuses? Total/Received?
 class Employee:
