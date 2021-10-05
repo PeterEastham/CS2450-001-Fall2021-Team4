@@ -1,4 +1,4 @@
 username,password,employee_id,permissions
-Peter,password,3,1:2:3:4
+,,3,2:3:4
 Test,User,2,
 Admin,foobar,1,1:2:4

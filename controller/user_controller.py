@@ -87,11 +87,10 @@ class UserController:
 
         return self._EC.get_one_by_id(emp_id)
 
-    def make_payroll(self):
+    def make_payroll(self, emp_id_list):
         self.check_priviledge(Permission.MAKE_PAYROLL.value, "Make Payroll")
-        Emp_list = list(self._EC.get_all_as_dict().values())
         PCon = PaymentController.start_controller()
-        PCon.pay_emp_list(Emp_list)
+        PCon.pay_emp_list(emp_id_list)
 
 
 

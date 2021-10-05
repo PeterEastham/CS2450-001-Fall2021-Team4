@@ -17,6 +17,43 @@ class EmployeeSearchPage(tk.Tk):
         self.columnconfigure(1, weight=3)
         self.create_widgets()
 
+    def move_items_lr(self):
+        curr = self.left_list_box.curselection()
+        self.left_list_box.selection_clear(0, self.left_list_box.size())
+        for index in curr:
+            self.right_list_box.insert(tk.END, self.left_list_box.get(index))
+            self.left_list_box.delete(index)
+
+    def move_items_rl(self):
+        curr = self.right_list_box.curselection()
+        self.right_list_box.selection_clear(0, self.right_list_box.size())
+        for index in curr:
+            self.left_list_box.insert(tk.END, self.right_list_box.get(index))
+            self.right_list_box.delete(index)
+
+    #We'll use in combination with "Select All"
+    def fill_side(self, side):
+        for index, emp in enumerate(self.emp_dict):
+            side.insert(index, emp)
+
+    def clear_side(self, side):
+       side.delete(0, tk.END)
+
+    def select_all(self):
+        self.clear_side(self.left_list_box)
+        self.clear_side(self.right_list_box)
+        self.fill_side(self.right_list_box)
+
+    def reset(self):
+        self.clear_side(self.left_list_box)
+        self.clear_side(self.right_list_box)
+        self.fill_side(self.left_list_box)
+
+    def do_payroll(self):
+        names = self.right_list_box.get(0,tk.END)
+        id_list = [self.emp_dict.get(name) for name in names]
+        self.UC.make_payroll(id_list)
+
     def create_widgets(self):
         """Create widgets for Employee Search Page"""
 
@@ -30,14 +67,16 @@ class EmployeeSearchPage(tk.Tk):
         username_entry.grid(column=0, row=1)
 
         # left side list box
-        self.left_list_box = tk.Listbox(self)
+        self.left_list_box = tk.Listbox(self, selectmode=tk.EXTENDED)
         self.left_list_box.grid(column=0, row=2)
+
+        # right list box
+        self.right_list_box = tk.Listbox(self, selectmode=tk.EXTENDED)
+        self.right_list_box.grid(column=2, row=2, sticky="NS")
 
         # Test example to populate the left side list box!!!
         self.emp_dict = self.UC.get_employee_dict()
-
-        for index, emp in enumerate(self.emp_dict):
-            self.left_list_box.insert(index, emp)
+        self.fill_side(self.left_list_box)
 
         # scroll bar for left side list box
         left_scrollbar = tk.Scrollbar(self)
@@ -45,16 +84,20 @@ class EmployeeSearchPage(tk.Tk):
         left_scrollbar.config(command=self.left_list_box.yview)
 
         # add button
-        add_button = ttk.Button(self, text="Add->")
+        add_button = ttk.Button(self, text="Add->", command=self.move_items_lr)
         add_button.grid(column=1, row=1, sticky="N")
 
+        # add all button
+        add_all_button = ttk.Button(self, text="Add All", command=self.select_all)
+        add_all_button.grid(column=1, row=2, sticky="N", pady=30)
+
+        reset_button = ttk.Button(self, text="Reset", command=self.reset)
+        reset_button.grid(column=1, row=2)
+
         # remove Button
-        remove_button = ttk.Button(self, text="<-Remove")
+        remove_button = ttk.Button(self, text="<-Remove", command=self.move_items_rl)
         remove_button.grid(column=1, row=2, sticky="S")
 
-        # right list box
-        self.right_list_box = tk.Listbox(self)
-        self.right_list_box.grid(column=2, row=2, sticky="NS")
 
         # scroll bar for right side list box
         right_scrollbar = tk.Scrollbar(self)
@@ -66,7 +109,7 @@ class EmployeeSearchPage(tk.Tk):
         view_button.grid(column=3, row=1, sticky="N", padx=40)
 
         # pay button
-        pay_button = ttk.Button(self, text="Pay\nEmployees")
+        pay_button = ttk.Button(self, text="Pay\nEmployees", command=self.do_payroll)
         pay_button.grid(column=3, row=2, sticky="S", padx=30)
 
         # close button
@@ -81,6 +124,8 @@ class EmployeeSearchPage(tk.Tk):
 
 
 def main():
+    UC = UserController.start_controller()
+    UC.login_bypass()
     app = EmployeeSearchPage()
     app.mainloop()
 

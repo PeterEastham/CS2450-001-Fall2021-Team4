@@ -20,8 +20,11 @@ class LoginPage(tk.Tk):
 
         self.create_widgets()
 
+    def validate_wrapper(self, *args):
+        self.validate_test()
+
     def validate_test(self):
-        if self.LC.validate(self.username_input.get(),self.password_input.get()):
+        if self.LC.validate(self.username_input.get(), self.password_input.get()):
             self.destroy()
             new_window = search.EmployeeSearchPage()
             new_window.mainloop()
@@ -49,6 +52,8 @@ class LoginPage(tk.Tk):
         # login button
         login_button = ttk.Button(self, text="Login", command=self.validate_test)
         login_button.grid(column=1, row=3, sticky=tk.E, padx=5, pady=5)
+
+        self.bind_all('<Key-Return>', self.validate_wrapper)
 
 
 def main():
