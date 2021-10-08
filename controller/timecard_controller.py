@@ -18,6 +18,15 @@ class TimeCardController():
             TimeCardController()
         return TimeCardController._TimeCardInstance
 
+    @staticmethod
+    def stop_controller():
+        if TimeCardController._TimeCardInstance != None:
+            object = TimeCardController._TimeCardInstance
+            object._TimeCardRepo.save_repo()
+            object._TimeCardRepo = None
+            TimeCardController._TimeCardInstance = None
+
+
     def __init__(self):
         if TimeCardController._TimeCardInstance != None:
             raise Exception("This class is a singleton")

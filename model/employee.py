@@ -54,7 +54,7 @@ class Employee:
         self.zipcode = input_dictionary["zipcode"]
         #See the Enums Module for value reference.
         self.classification = int(input_dictionary["classification"])
-        self.payment_Method = int(input_dictionary["payment_method"])
+        self.payment_Method = int(input_dictionary["payment_Method"])
         self.salary = 0
         self.rate = 0
         self.route = input_dictionary["route"]
@@ -120,8 +120,8 @@ class Employee:
     #Potentially could be removed if we decided to use file.writeLines()
     #But this maintains current format.
     def save_format(self):
-        if not self.valid:
-            raise Exception("Missing Save Params")
+        # if not self.valid:
+        #     raise Exception("Missing Save Params")
 
         base = ""
         property_value = self.__dict__.values()

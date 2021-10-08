@@ -35,6 +35,17 @@ class PaymentController():
             PaymentController()
         return PaymentController._PaymentInstance
 
+    @staticmethod
+    def stop_controller():
+        if PaymentController._PaymentInstance != None:
+            object = PaymentController._PaymentInstance
+            object._TimeCardController.stop_controller()
+            object._TimeCardController = None
+            object._RecController.stop_controller()
+            object._RecController = None
+            object._EmpController = None
+            PaymentController._PaymentInstance = None
+
     def __init__(self):
         if PaymentController._PaymentInstance != None:
             raise Exception("This class is a singleton")

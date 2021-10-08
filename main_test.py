@@ -4,6 +4,7 @@ import unittest
 from tests.payroll_test import TestPayroll
 from tests.service_test import ServiceModuleTest
 from service.file_helper import FileHelper
+from controller.user_controller import UserController
 from view.login_page import main as main
 from pprint import pprint
 
@@ -22,3 +23,4 @@ if __name__ == "__main__":
     print(f"Tests Run {result.testsRun}")
     print(f"Error Total {len(result.errors)}")
     print(f"Failure Total {len(result.failures)}")
+    main()

@@ -17,6 +17,9 @@ class EmployeeFactory():
         if version == "emp_1.0":
             return EmployeeFactory.version_one(dict_row)
 
+        if version == "emp_1.3":
+            return EmployeeFactory.version_one_three(dict_row)
+
     @staticmethod
     def version_one(dict_row):
         base = EmployeeFactory.base_dictionary()
@@ -34,12 +37,17 @@ class EmployeeFactory():
         base["state"] = dict_row["State"]
         base["zipcode"] = dict_row["Zip"]
         base["classification"] = dict_row["Classification"]
-        base["payment_method"] = dict_row["PayMethod"]
+        base["payment_Method"] = dict_row["PayMethod"]
         base["income"] = [dict_row["Salary"], dict_row["Hourly"], dict_row["Commission"]]
         base["route"] = dict_row["Route"]
         base["account"] = dict_row["Account"]
 
         return Employee(base)
+
+    @staticmethod
+    def version_one_three(dict_row):
+        dict_row["income"] = [dict_row["salary"], dict_row["rate"], dict_row["rate"]]
+        return Employee(dict_row)
 
 
     @staticmethod

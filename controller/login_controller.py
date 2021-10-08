@@ -22,6 +22,12 @@ class LoginController():
             LoginController()
         return LoginController._UserInstance
 
+    @staticmethod
+    def close_controller():
+        if LoginController._UserInstance != None:
+            LoginController._UserInstance = None
+            LoginController._UserRepo = None
+
     def __init__(self):
         if LoginController._UserInstance != None:
             raise Exception("This class is a singleton")
@@ -41,8 +47,3 @@ class LoginController():
             return True
         else:
             return False
-
-
-    def stop_controller(self):
-        self._UserInstance = None
-        self._UserRepo = None

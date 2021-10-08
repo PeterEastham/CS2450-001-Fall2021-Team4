@@ -1,3 +1,6 @@
-username,password,permissions
-Admin,password,1:2:3:4
-Test,user,1:2:3:4
+username,password,employee_id,permissions
+Admin,password,,1:2:3:4
+testOne,one,,1
+testTwo,two,,1:2
+testThree,three,,1:2:3
+testFour,four,,1:2:3:4

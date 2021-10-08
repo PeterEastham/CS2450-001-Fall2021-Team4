@@ -11,5 +11,5 @@ def class_csv_headers(object):
 
 header_to_version = {
     "ID,Name,Address,City,State,Zip,Classification,PayMethod,Salary,Hourly,Commission,Route,Account" : "emp_1.0",
-    "id,first_name,last_name,archived,social_security,title,department,office_email,office_phone,start_date,street_address,city,state,zipcode,classification,payment_Method,salary,rate,route,account,valid" : "emp_1.3"
+    "id,first_name,last_name,archived,social_security,title,department,office_email,office_phone,start_date,imported,street_address,city,state,zipcode,classification,payment_Method,salary,rate,route,account,valid" : "emp_1.3"
 }

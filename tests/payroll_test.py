@@ -24,4 +24,8 @@ class TestPayroll(unittest.TestCase):
             pay_str = PCon.get_pay_str(employee)
             test_pay.append(pay_str)
 
-        self.assertListEqual(original_pay, test_pay)
+        PCon._EmpController.close_repo()
+        for pay_line in test_pay:
+            self.assertIn(pay_line, original_pay)
+        PCon._EmpController.stop_controller()
+        PCon.stop_controller()

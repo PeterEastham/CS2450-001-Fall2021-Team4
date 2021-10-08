@@ -18,6 +18,14 @@ class ReceiptController():
             ReceiptController()
         return ReceiptController._ReceiptInstance
 
+    @staticmethod
+    def stop_controller():
+        if ReceiptController._ReceiptInstance != None:
+            object = ReceiptController._ReceiptInstance
+            object._ReceiptRepo.save_repo()
+            object._ReceiptRepo = None
+            ReceiptController._ReceiptInstance = None
+
     def __init__(self):
         if ReceiptController._ReceiptInstance != None:
             raise Exception("This class is a singleton")

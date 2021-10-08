@@ -23,6 +23,13 @@ class EmployeeController():
             EmployeeController()
         return EmployeeController._EmpInstance
 
+    @staticmethod
+    def stop_controller():
+        if EmployeeController._EmpInstance != None:
+            EmployeeController._EmpInstance.close_repo()
+            EmployeeController._EmpInstance = None
+            EmployeeController._EmpRepo = None
+
     #We might put the initial repo string in here.
     def __init__(self):
         if EmployeeController._EmpInstance != None:
@@ -40,9 +47,7 @@ class EmployeeController():
 
     #Created an to meet Shareholder Requirements.
     def close_repo(self):
-        if self._EmpRepo == None:
-            self.__no_emp_repo()
-        else:
+        if self._EmpRepo != None:
             self._EmpRepo.save_repo()
             self._EmpRepo = None
 

@@ -45,7 +45,7 @@ class UserController:
             self._EC = EmployeeController.start_controller()
             self._EC.open_repo(empRepoPath)
             #We'll store the User Repository here.
-            #User != Employee!!!!
+            #Users are Employees
 
     def login(self, user):
         if self._CurrUser != None:
@@ -91,6 +91,7 @@ class UserController:
         self.check_priviledge(Permission.MAKE_PAYROLL.value, "Make Payroll")
         PCon = PaymentController.start_controller()
         PCon.pay_emp_list(emp_id_list)
+        PCon.stop_controller()
 
 
 
@@ -112,4 +113,6 @@ class UserController:
         self._UserRepo.save_repo()
         self._UserRepo = None
         self._CurrUser = None
+        self._EC.stop_controller()
+        self._EC = None
         UserController._UserInstance = None
