@@ -18,15 +18,21 @@ class EmployeeSearchPage(tk.Tk):
         self.create_widgets()
 
     def move_items_lr(self):
-        curr = self.left_list_box.curselection()
-        self.left_list_box.selection_clear(0, self.left_list_box.size())
+        curr = list(self.left_list_box.curselection())
+        if len(curr) == 0:
+            return
+        list.sort(curr, reverse=True)
+        self.left_list_box.selection_clear(0, tk.END)
         for index in curr:
             self.right_list_box.insert(tk.END, self.left_list_box.get(index))
             self.left_list_box.delete(index)
 
     def move_items_rl(self):
-        curr = self.right_list_box.curselection()
-        self.right_list_box.selection_clear(0, self.right_list_box.size())
+        curr = list(self.right_list_box.curselection())
+        if len(curr) == 0:
+            return
+        list.sort(curr, reverse=True)
+        self.right_list_box.selection_clear(0, tk.END)
         for index in curr:
             self.left_list_box.insert(tk.END, self.right_list_box.get(index))
             self.right_list_box.delete(index)
