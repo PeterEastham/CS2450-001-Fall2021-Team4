@@ -23,9 +23,10 @@ class LoginController():
         return LoginController._UserInstance
 
     @staticmethod
-    def close_controller():
+    def stop_controller():
         if LoginController._UserInstance != None:
-            LoginController._UserInstance._UserRepo = None
+            object = LoginController._UserInstance
+            object._UserRepo = None
             LoginController._UserInstance = None
 
     def __init__(self, Controller):

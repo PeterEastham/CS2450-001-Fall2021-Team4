@@ -47,7 +47,6 @@ class EmployeeController():
     #get_controller()? check_controller()? <- Mirror start_controller, just for readability.
 
     def open_repo(self, repoPath):
-        print(repoPath)
         if self._EmpRepo != None:
             raise Exception("Only one Employee Database may be open!")
         else:

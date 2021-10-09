@@ -61,6 +61,10 @@ class EmployeeSearchPage(tk.Tk):
         id_list = [self.emp_dict.get(name) for name in names]
         self.UC.make_payroll(id_list)
 
+    def close_application(self):
+        self._SuperController.close_all_controllers()
+        self.destroy()
+
     def create_widgets(self):
         """Create widgets for Employee Search Page"""
 
@@ -120,7 +124,7 @@ class EmployeeSearchPage(tk.Tk):
         pay_button.grid(column=3, row=2, sticky="S", padx=30)
 
         # close button
-        close_button = ttk.Button(self, text="Close")
+        close_button = ttk.Button(self, text="Close", command=self.close_application)
         close_button.grid(column=3, row=2, padx=30)
 
         # logout button

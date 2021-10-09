@@ -33,6 +33,14 @@ class UserController:
         else:
             raise Exception("Start the Controller first")
 
+    #This hits Itself and the Employee controller
+    @staticmethod
+    def stop_controller():
+        if UserController._UserInstance != None:
+            object = UserController._UserInstance
+            object._EC.stop_controller()
+            object._UserRepo.save_repo()
+
     #DO NOT CALL OUTSIDE OF start_controller!!
     def __init__(self, Controller):
         if UserController._UserInstance != None:
@@ -93,7 +101,7 @@ class UserController:
         self.check_priviledge(Permission.MAKE_PAYROLL.value, "Make Payroll")
         PCon = self._SuperController.get_a_controller(CT.PAYMENT_CONTROLLER)
         PCon.pay_emp_list(emp_id_list)
-        PCon.stop_controller()
+        self._SuperController.close_a_controller(CT.PAYMENT_CONTROLLER)
 
 
 

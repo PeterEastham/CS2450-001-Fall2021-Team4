@@ -27,6 +27,7 @@ class LoginPage(tk.Tk):
     def validate_test(self):
         if self.LC.validate(self.username_input.get(), self.password_input.get()):
             Controller = self._SuperController
+            self.LC.stop_controller()
             self.destroy()
             new_window = search.EmployeeSearchPage(Controller)
             new_window.mainloop()

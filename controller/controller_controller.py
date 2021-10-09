@@ -90,6 +90,10 @@ class Controller():
         else:
             raise Exception("Invalid Request!")
 
+    def close_all_controllers(self):
+        self._UserCon[0].stop_controller()
+        self._PayCon[0].close_controller()
+
     # requested_status == True, self._Controller[1] == True - Return Controller
     # requested_status == True, self._Controller[1] == False - Return Controller
     # requested_status == False, self._Controller[1] == True - Set [1] to false

@@ -42,7 +42,7 @@ class PaymentController():
             raise Exception("Start the Controller first")
 
     @staticmethod
-    def stop_controller():
+    def close_controller():
         if PaymentController._PaymentInstance != None:
             object = PaymentController._PaymentInstance
             object._TimeCardController.stop_controller()

@@ -36,6 +36,8 @@ class User:
         save += ","
         save += self.password
         save += ","
+        save += self.employee_id
+        save += ","
 
         for permission in self.permissions:
             save += f"{permission}:"
