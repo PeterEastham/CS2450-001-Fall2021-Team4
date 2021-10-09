@@ -1,17 +1,18 @@
 import tkinter as tk
 from tkinter import ttk
-from controller.user_controller import UserController
+from enums.controllers import Controller_Types as CT
 
 
 class EmployeeSearchPage(tk.Tk):
     """Search Page """
-    def __init__(self):
+    def __init__(self, Controller):
         super().__init__()
 
         self.geometry("550x250")
         self.title('Employee Search')
         self.resizable(0, 0)
-        self.UC = UserController.get_controller()
+        self._SuperController = Controller
+        self.UC = self._SuperController.get_a_controller(CT.USER_CONTROLLER)
         # grid config
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=3)

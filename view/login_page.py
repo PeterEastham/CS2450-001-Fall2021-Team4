@@ -6,9 +6,10 @@ from view import search_page as search
 
 class LoginPage(tk.Tk):
     """Class for the login page"""
-    def __init__(self, LoginCon):
+    def __init__(self, LoginCon, Controller):
         super().__init__()
         self.LC = LoginCon
+        self._SuperController = Controller
 
         self.geometry("300x100")
         self.title('Login')
@@ -20,13 +21,14 @@ class LoginPage(tk.Tk):
 
         self.create_widgets()
 
-    def validate_wrapper(self, *args):
+    def validate_wrapper(self):
         self.validate_test()
 
     def validate_test(self):
         if self.LC.validate(self.username_input.get(), self.password_input.get()):
+            Controller = self._SuperController
             self.destroy()
-            new_window = search.EmployeeSearchPage()
+            new_window = search.EmployeeSearchPage(Controller)
             new_window.mainloop()
 
     def create_widgets(self):
@@ -58,7 +60,7 @@ class LoginPage(tk.Tk):
 
 def main(Controller):
     LoginCon = Controller.get_a_controller(CT.LOGIN_CONTROLLER)
-    app = LoginPage(LoginCon)
+    app = LoginPage(LoginCon, Controller)
     app.mainloop()
 
 
