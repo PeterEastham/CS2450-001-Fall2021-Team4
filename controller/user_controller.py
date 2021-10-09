@@ -5,10 +5,11 @@ the get_controller to get the reference. And make sure to log-out a user.
 """
 from repo.userRepo import UserRepo
 from model.user import User
+
 from enums.permissions import Permission
-from controller.employee_controller import EmployeeController
-from controller.payment_controller import PaymentController
+from enums.controllers import Controller_Types as CT
 from service.file_helper import FileHelper
+
 class UserController:
     #Required for Singleton Behavior
     _UserInstance = None
@@ -18,9 +19,9 @@ class UserController:
 
     #This annotation allows us to call the function with calling __init__ first.
     @staticmethod
-    def start_controller():
+    def start_controller(Controller):
         if UserController._UserInstance == None:
-            UserController()
+            UserController(Controller)
         return UserController._UserInstance
 
     #This code mirrors start_controller(), but can only be called after it.
@@ -33,16 +34,17 @@ class UserController:
             raise Exception("Start the Controller first")
 
     #DO NOT CALL OUTSIDE OF start_controller!!
-    def __init__(self):
+    def __init__(self, Controller):
         if UserController._UserInstance != None:
             raise Exception("This class is a Singleton!")
         else:
             UserController._UserInstance = self
+            self._SuperController = Controller
             self._FileHelper = FileHelper.get_helper()
             empRepoPath = self._FileHelper.get_adjusted_path(".//resources//employees.csv")
             userRepoPath = self._FileHelper.get_adjusted_path(".//resources//users.csv")
             self._UserRepo = UserRepo(userRepoPath)
-            self._EC = EmployeeController.start_controller()
+            self._EC = self._SuperController.get_a_controller(CT.EMPLOYEE_CONTROLLER)
             self._EC.open_repo(empRepoPath)
             #We'll store the User Repository here.
             #Users are Employees
@@ -89,7 +91,7 @@ class UserController:
 
     def make_payroll(self, emp_id_list):
         self.check_priviledge(Permission.MAKE_PAYROLL.value, "Make Payroll")
-        PCon = PaymentController.start_controller()
+        PCon = self._SuperController.get_a_controller(CT.PAYMENT_CONTROLLER)
         PCon.pay_emp_list(emp_id_list)
         PCon.stop_controller()
 

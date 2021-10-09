@@ -13,9 +13,8 @@ but not really for anything else.
 
 from model.employee import Employee
 from model.receipt import Receipt
-from controller.employee_controller import EmployeeController
-from controller.receipt_controller import ReceiptController
-from controller.timecard_controller import TimeCardController
+
+from enums.controllers import Controller_Types as CT
 from enums.classification import Classification
 from enums.paycheck_method import Paycheck_Method
 from service.file_helper import FileHelper
@@ -30,10 +29,17 @@ class PaymentController():
     #Execution.
 
     @staticmethod
-    def start_controller():
+    def start_controller(Controller):
         if PaymentController._PaymentInstance == None:
-            PaymentController()
+            PaymentController(Controller)
         return PaymentController._PaymentInstance
+
+    @staticmethod
+    def get_controller():
+        if PaymentController._PaymentInstance != None:
+            return PaymentController._PaymentInstance
+        else:
+            raise Exception("Start the Controller first")
 
     @staticmethod
     def stop_controller():
@@ -46,26 +52,27 @@ class PaymentController():
             object._EmpController = None
             PaymentController._PaymentInstance = None
 
-    def __init__(self):
+    def __init__(self, Controller):
         if PaymentController._PaymentInstance != None:
             raise Exception("This class is a singleton")
         else:
             PaymentController._PaymentInstance = self
             self._FileHelper = FileHelper.get_helper()
+            self._SuperController = Controller
             self.update_emp_controller()
             self.update_receipt_controller()
             self.update_timecard_controller()
 
     #These three functions are to verify the other controllers have started.
     def update_emp_controller(self):
-        self._EmpController = EmployeeController.start_controller()
+        self._EmpController = self._SuperController.get_a_controller(CT.EMPLOYEE_CONTROLLER)
 
     def update_receipt_controller(self):
-        self._RecController = ReceiptController.start_controller()
+        self._RecController = self._SuperController.get_a_controller(CT.RECEIPT_CONTROLLER)
         self._RecController.open_repo("")
 
     def update_timecard_controller(self):
-        self._TimeCardController = TimeCardController.start_controller()
+        self._TimeCardController = self._SuperController.get_a_controller(CT.TIMECARD_CONTROLLER)
         self._TimeCardController.open_repo("")
 
 

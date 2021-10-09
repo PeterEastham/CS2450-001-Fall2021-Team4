@@ -19,6 +19,13 @@ class ReceiptController():
         return ReceiptController._ReceiptInstance
 
     @staticmethod
+    def get_controller():
+        if ReceiptController._ReceiptInstance != None:
+            return ReceiptController._ReceiptInstance
+        else:
+            raise Exception("Start the Controller first")
+
+    @staticmethod
     def stop_controller():
         if ReceiptController._ReceiptInstance != None:
             object = ReceiptController._ReceiptInstance

@@ -19,6 +19,13 @@ class TimeCardController():
         return TimeCardController._TimeCardInstance
 
     @staticmethod
+    def get_controller():
+        if TimeCardController._TimeCardInstance != None:
+            return TimeCardController._TimeCardInstance
+        else:
+            raise Exception("Start the Controller first")
+
+    @staticmethod
     def stop_controller():
         if TimeCardController._TimeCardInstance != None:
             object = TimeCardController._TimeCardInstance

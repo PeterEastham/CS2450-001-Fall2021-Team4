@@ -1,9 +1,8 @@
 import unittest
 
 from model.user import User
-from controller.user_controller import UserController
-from controller.payment_controller import PaymentController
-from controller.employee_controller import EmployeeController
+from controller.controller_controller import Controller
+from enums.controllers import Controller_Types as CT
 from service.file_helper import FileHelper
 
 class TestPayroll(unittest.TestCase):
@@ -15,8 +14,8 @@ class TestPayroll(unittest.TestCase):
             for line in original:
                 original_pay.append(line)
 
-        PCon = PaymentController.start_controller()
-        PCon._EmpController.open_repo(FH.get_adjusted_path("/resources//employees.csv"))
+        Con = Controller.get_controller()
+        PCon = Con.get_a_controller(CT.PAYMENT_CONTROLLER)
         employee_list = list(PCon._EmpController.get_all_as_dict().values())
 
         test_pay = []
@@ -27,5 +26,5 @@ class TestPayroll(unittest.TestCase):
         PCon._EmpController.close_repo()
         for pay_line in test_pay:
             self.assertIn(pay_line, original_pay)
-        PCon._EmpController.stop_controller()
-        PCon.stop_controller()
+        Con.close_a_controller(CT.EMPLOYEE_CONTROLLER)
+        Con.close_a_controller(CT.PAYMENT_CONTROLLER)

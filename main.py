@@ -2,6 +2,7 @@ import sys
 
 from service.file_helper import FileHelper
 from view.login_page import main as main
+from controller.controller_controller import Controller
 
 # from tests import payroll_test
 """
@@ -16,4 +17,5 @@ Login Page, but we might look into changing that.
 
 if __name__ == "__main__":
     FileHelper.start_helper(sys.argv[0][:-7])
-    main()
+    Con = Controller.start_controller()
+    main(Con)

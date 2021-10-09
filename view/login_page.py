@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from controller.login_controller import LoginController
+from enums.controllers import Controller_Types as CT
 from view import search_page as search
 
 
@@ -56,8 +56,8 @@ class LoginPage(tk.Tk):
         self.bind_all('<Key-Return>', self.validate_wrapper)
 
 
-def main():
-    LoginCon = LoginController.start_controller()
+def main(Controller):
+    LoginCon = Controller.get_a_controller(CT.LOGIN_CONTROLLER)
     app = LoginPage(LoginCon)
     app.mainloop()
 
