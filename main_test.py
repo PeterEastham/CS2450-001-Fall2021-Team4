@@ -25,4 +25,6 @@ if __name__ == "__main__":
     print(f"Error Total {len(result.errors)}")
     print(f"Failure Total {len(result.failures)}")
     # print(result.buffer)
-    main(Con)
+    # main(Con)
+    # DO NOT RUN THE TESTS IF YOU PLAN TO GO INTO THE GUI.
+    # They currently break each other.

@@ -1,9 +1,12 @@
 import tkinter as tk
 from tkinter import ttk
 from enums.controllers import Controller_Types as CT
+import sys
+# from view.login_page import LoginPage
 
 
 class EmployeeSearchPage(tk.Tk):
+
     """Search Page """
     def __init__(self, Controller):
         super().__init__()
@@ -17,6 +20,10 @@ class EmployeeSearchPage(tk.Tk):
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=3)
         self.create_widgets()
+
+    def pass_in_login_construc(self, login_constr):
+        print(login_constr)
+        self._login_constr = login_constr
 
     def move_items_lr(self):
         curr = list(self.left_list_box.curselection())
@@ -65,9 +72,15 @@ class EmployeeSearchPage(tk.Tk):
         self._SuperController.close_all_controllers()
         self.destroy()
 
+    def do_logout(self):
+        self.UC.logout()
+        self.destroy()
+        LogicCon = self._SuperController.get_a_controller(CT.LOGIN_CONTROLLER)
+        LoginPage = self._login_constr(self._SuperController)
+        LoginPage.mainloop()
+
     def create_widgets(self):
         """Create widgets for Employee Search Page"""
-
         # search label
         search_label = ttk.Label(self, text="Search")
         search_label.grid(column=0, row=0)
@@ -85,10 +98,11 @@ class EmployeeSearchPage(tk.Tk):
         self.right_list_box = tk.Listbox(self, selectmode=tk.EXTENDED)
         self.right_list_box.grid(column=2, row=2, sticky="NS")
 
-        # Test example to populate the left side list box!!!
-        self.emp_dict = self.UC.get_employee_dict()
-        self.fill_side(self.left_list_box)
-
+        try:
+            self.emp_dict = self.UC.get_employee_dict()
+            self.fill_side(self.left_list_box)
+        except Exception:
+            print(self.UC._CurrUser.username)
         # scroll bar for left side list box
         left_scrollbar = tk.Scrollbar(self)
         left_scrollbar.grid(column=0, row=2, sticky="NSE")
@@ -128,18 +142,5 @@ class EmployeeSearchPage(tk.Tk):
         close_button.grid(column=3, row=2, padx=30)
 
         # logout button
-        logout_button = ttk.Button(self, text="Logout")
+        logout_button = ttk.Button(self, text="Logout", command=self.do_logout)
         logout_button.grid(column=3, row=2, sticky="N", pady=30)
-
-
-
-
-def main():
-    UC = UserController.start_controller()
-    UC.login_bypass()
-    app = EmployeeSearchPage()
-    app.mainloop()
-
-
-if __name__ == "__main__":
-    main()

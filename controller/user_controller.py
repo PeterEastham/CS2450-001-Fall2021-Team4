@@ -68,7 +68,6 @@ class UserController:
 
     def get_employee_dict(self):
         self.check_priviledge(Permission.CAN_VIEW_EMP.value, "View Employees")
-
         return self._EC.get_all_as_dict()
 
 
@@ -121,8 +120,5 @@ class UserController:
     #CALL THIS FUNCTION
     def logout(self):
         self._UserRepo.save_repo()
-        self._UserRepo = None
         self._CurrUser = None
-        self._EC.stop_controller()
-        self._EC = None
-        UserController._UserInstance = None
+        self._SuperController.close_a_controller(CT.EMPLOYEE_CONTROLLER)
