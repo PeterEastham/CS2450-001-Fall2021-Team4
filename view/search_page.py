@@ -1,9 +1,18 @@
 import tkinter as tk
 from tkinter import ttk
-from enums.controllers import Controller_Types as CT
-import sys
-# from view.login_page import LoginPage
 
+from enums.controllers import Controller_Types as CT
+
+"""
+This Class is the landing page after a successful login.
+
+We pass in the Constructor to the Login-Page as well, we'll likely
+want to convert that into a list for when we have multiple possible pages.
+
+We use the UserController from this point to handle data, but we'll also pass
+in the SuperController so that we can give the LoginPage the LoginController on
+Logout.
+"""
 
 class EmployeeSearchPage(tk.Tk):
 
@@ -22,7 +31,6 @@ class EmployeeSearchPage(tk.Tk):
         self.create_widgets()
 
     def pass_in_login_construc(self, login_constr):
-        print(login_constr)
         self._login_constr = login_constr
 
     def move_items_lr(self):

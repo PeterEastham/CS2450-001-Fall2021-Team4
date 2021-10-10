@@ -8,7 +8,6 @@ class LoginPage(tk.Tk):
 
     @staticmethod
     def bypass(Controller):
-        print(Controller)
         return LoginPage(Controller.get_a_controller(CT.LOGIN_CONTROLLER), Controller)
 
     """Class for the login page"""
