@@ -12,3 +12,4 @@ class Controller_Types(Enum):
     TIMECARD_CONTROLLER = 4
     USER_CONTROLLER = 5
     LOGIN_CONTROLLER = 6
+    ROLE_CONTROLLER = 7

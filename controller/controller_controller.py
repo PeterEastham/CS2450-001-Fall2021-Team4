@@ -21,6 +21,7 @@ from .payment_controller import PaymentController
 from .receipt_controller import ReceiptController
 from .timecard_controller import TimeCardController
 from .user_controller import UserController
+from .role_controller import RoleController
 
 from enums.controllers import Controller_Types as CT
 
@@ -54,6 +55,7 @@ class Controller():
             self._EmpCon = [EmployeeController.start_controller(), True]
             self._PayCon = [PaymentController.start_controller(self), True]
             self._UserCon = [UserController.start_controller(self), True]
+            self._RoleCon = [RoleController.start_controller(self), True]
 
     def get_a_controller(self, request):
         controller_response = None
@@ -68,6 +70,8 @@ class Controller():
         elif request == CT.USER_CONTROLLER:
             controller_response = self._handle_status(request, True)
         elif request == CT.LOGIN_CONTROLLER:
+            controller_response = self._handle_status(request, True)
+        elif request == CT.ROLE_CONTROLLER:
             controller_response = self._handle_status(request, True)
         else:
             raise Exception("Invalid Request!")
@@ -86,6 +90,8 @@ class Controller():
         elif request == CT.USER_CONTROLLER:
             controller_response = self._handle_status(request, False)
         elif request == CT.LOGIN_CONTROLLER:
+            controller_response = self._handle_status(request, False)
+        elif request == CT.ROLE_CONTROLLER:
             controller_response = self._handle_status(request, False)
         else:
             raise Exception("Invalid Request!")
@@ -112,6 +118,8 @@ class Controller():
             requested_controller = self._UserCon
         elif request == CT.LOGIN_CONTROLLER:
             requested_controller = self._LogCon
+        elif request == CT.ROLE_CONTROLLER:
+            requested_controller = self._RoleCon
 
         if requested_status and requested_controller[1]:
             return requested_controller[0]
