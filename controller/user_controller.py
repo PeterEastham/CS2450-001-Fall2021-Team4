@@ -94,7 +94,7 @@ class UserController:
     def get_employee_by_id(self, emp_id):
         self.check_priviledge(Permission.CAN_VIEW_EMP.value, "View Employee")
 
-        return self._EC.get_one_by_id(emp_id)
+        return self._EC.get_employee_by_id(emp_id)
 
     def make_payroll(self, emp_id_list):
         self.check_priviledge(Permission.MAKE_PAYROLL.value, "Make Payroll")

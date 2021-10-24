@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 
 from enums.controllers import Controller_Types as CT
-
+from view.employee_view import EmployeeViewPage
 """
 This Class is the landing page after a successful login.
 
@@ -71,6 +71,18 @@ class EmployeeSearchPage(tk.Tk):
         self.clear_side(self.right_list_box)
         self.fill_side(self.left_list_box)
 
+    def view_employee(self):
+        selected_index = self.right_list_box.curselection()
+        if len(selected_index) == 0:
+            selected_index = self.left_list_box.curselection()
+            selected_emp_id = self.left_list_box.get(selected_index[0])
+        else:
+            selected_emp_id = self.right_list_box.get(selected_index[0])
+        selected_emp_id = self.emp_dict[selected_emp_id]
+        target_emp = self.UC.get_employee_by_id(selected_emp_id)
+        view_window = EmployeeViewPage(self._SuperController, target_emp)
+
+
     def do_payroll(self):
         names = self.right_list_box.get(0,tk.END)
         id_list = [self.emp_dict.get(name) for name in names]
@@ -138,7 +150,7 @@ class EmployeeSearchPage(tk.Tk):
         right_scrollbar.config(command=self.right_list_box.yview)
 
         # view employee button
-        view_button = ttk.Button(self, text="View\nEmployee")
+        view_button = ttk.Button(self, text="View\nEmployee", command=self.view_employee)
         view_button.grid(column=3, row=1, sticky="N", padx=40)
 
         # pay button
