@@ -12,6 +12,10 @@ class EmployeeViewPage(tk.Tk):
         self.title("Employee View")
         self.resizable(0, 0)
         self._SuperController = Controller
+
+        self.create_base_labels_and_boxes()
+
+
         # if employee != None:
         #     self.view_employee(employee)
         # else:
@@ -80,79 +84,79 @@ class EmployeeViewPage(tk.Tk):
         receipts_timecards_scrollbox = tk.Scrollbar(self)
         receipts_timecards_scrollbox.grid(column=5, rowspan=3, row=1, sticky="NS")
 
+
+    def create_base_labels_and_boxes(self):
+        """Creates labels and boxes for the base view."""
+        self.first_name = tk.StringVar(value="")
+        self.last_name = tk.StringVar(value="")
+        self.salary = tk.StringVar(value="")
+        self.city = tk.StringVar(value="")
+        self.rate = tk.StringVar(value="")
+        self.next_payroll = tk.StringVar(value="")
+        self.classification = tk.StringVar(value="")
+        self.first_name_lb = ttk.Label(self, text="First name")
+        self.last_name_lb = ttk.Label(self, text="Last name")
+        self.salary_label = ttk.Label(self, text="Salary")
+        self.rate_label = ttk.Label(self, text="Commission")
+        self.box_label = ttk.Label(self, text="Receipts/Timecards")
+        self.city_label = ttk.Label(self, text="City")
+        self.first_name_box = ttk.Entry(self, width=12, textvariable=self.first_name)
+        self.last_name_box = ttk.Entry(self, width=12, textvariable=self.last_name)
+        self.city_box = ttk.Entry(self, width=25, textvariable=self.city)
+        self.classification_label = ttk.Label(self, text="Classification")
+        self.classification_box = ttk.Entry(self, width=20, textvariable=self.classification)
+        self.salary_box = ttk.Entry(self, width=20, textvariable=self.classification)
+        self.next_payroll_label = ttk.Label(self, text="Next Payroll Amount")
+        self.rate_box = ttk.Entry(self, width=20, textvariable=self.rate)
+        self.next_payroll_box = ttk.Entry(self, width=25, textvariable=self.next_payroll)
+        self.close_button = ttk.Button(self, text="Close")
+        self.edit_button = ttk.Button(self, text="Edit")
+        self.receipts_timecards_scrollbox = tk.Scrollbar(self)
+        self.the_list_box = tk.Listbox(self)
+
     def base_view(self):
 
         # first and last name text boxes & labels
 
-        first_name_lb = ttk.Label(self, text="First name")
-        first_name_lb.grid(column=0, row=1)
+        self.first_name_lb.grid(column=0, row=0)
 
-        self.first_name = tk.StringVar(value="")
-        first_name_box = ttk.Entry(self, width=12, textvariable=self.first_name)
-        first_name_box.grid(column=0, row=2)
+        self.first_name_box.grid(column=0, row=1)
 
-        last_name_lb = ttk.Label(self, text="Last name")
-        last_name_lb.grid(column=2, row=1)
+        self.last_name_lb.grid(column=2, row=0)
 
-        self.last_name = tk.StringVar(value="")
-        last_name_box = ttk.Entry(self, width=12, textvariable=self.last_name)
-        last_name_box.grid(column=2, row=2)
+        self.last_name_box.grid(column=2, row=1)
 
         # city and classification boxes & labels
 
-        city_label = ttk.Label(self, text="City")
-        city_label.grid(column=1, row=3)
+        self.city_label.grid(column=1, row=3)
 
-        self.city = tk.StringVar(value="")
-        city_box = ttk.Entry(self, width=25, textvariable=self.city)
-        city_box.grid(column=1, row=4)
+        self.city_box.grid(column=1, row=4)
 
-        classification_label = ttk.Label(text="Classification")
-        classification_label.grid(column=1, row=5)
+        self.classification_label.grid(column=1, row=5)
 
-        self.classification = tk.StringVar(value="")
-        classification_box = ttk.Entry(self, width=20, textvariable=self.classification)
-        classification_box.grid(column=1, row=6)
+        self.classification_box.grid(column=1, row=6)
 
         # payment information text boxes and labels
 
-        salary_label = ttk.Label(text="Salary")
-        salary_label.grid(column=0, row=7)
+        self.salary_label.grid(column=0, row=7)
 
-        self.salary = tk.StringVar(value="")
-        salary_box = ttk.Entry(self, width=20, textvariable=self.classification)
-        salary_box.grid(column=0, row=8, padx=10)
+        self.salary_box.grid(column=0, row=8, padx=10)
 
-        rate_label = ttk.Label(text="Commission")
-        rate_label.grid(column=2, row=7)
+        self.rate_label.grid(column=2, row=7)
 
-        self.rate = tk.StringVar(value="")
-        rate_box = ttk.Entry(self, width=20, textvariable=self.rate)
-        rate_box.grid(column=2, row=8)
+        self.rate_box.grid(column=2, row=8)
 
-        next_payroll_label = ttk.Label(text="Next Payroll Amount")
-        next_payroll_label.grid(column=1, row=9)
+        self.next_payroll_label.grid(column=1, row=9)
 
-        self.next_payroll = tk.StringVar(value="")
-        next_payroll_box = ttk.Entry(self, width=25, textvariable=self.next_payroll)
-        next_payroll_box.grid(column=1, row=10, pady=5)
+        self.next_payroll_box.grid(column=1, row=10, pady=5)
 
         # close and edit buttons
 
-        close_button = ttk.Button(self, text="Close")
-        close_button.grid(column=0, row=12)
-
-        edit_button = ttk.Button(self, text="Edit")
-        edit_button.grid(column=1, row=12)
-
+        self.close_button.grid(column=0, row=12)
+        self.edit_button.grid(column=1, row=12)
 
         # scrollbar and listbox for the receipts and timecards
 
-        box_label = ttk.Label(text="Receipts/Timecards")
-        box_label.grid(column=6, row=10, columnspan=2)
-
-        self.the_list_box = tk.Listbox(self)
+        self.box_label.grid(column=6, row=10, columnspan=2)
         self.the_list_box.grid(column=6, rowspan=2, row=11, sticky="E")
-
-        receipts_timecards_scrollbox = tk.Scrollbar(self)
-        receipts_timecards_scrollbox.grid(column=7, rowspan=2, row=11, sticky="NS")
+        self.receipts_timecards_scrollbox.grid(column=7, rowspan=2, row=11, sticky="NS")
