@@ -289,7 +289,7 @@ class EmployeeViewPage(tk.Tk):
             if Shifts == None:
                 return None
             for shift in Shifts:
-                self.the_list_box.insert(tk.END, hour)
+                self.the_list_box.insert(tk.END, shift)
 
         if self.__employee.classification == Classification.COMMISSIONED.value:
             RecCon = self._SuperController.get_a_controller(CT.RECEIPT_CONTROLLER)
