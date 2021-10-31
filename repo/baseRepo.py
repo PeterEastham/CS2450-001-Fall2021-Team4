@@ -42,6 +42,13 @@ class BaseCSVRepo(ABC):
         self.remove_one_by_id(object.id)
         self.add_one(object)
 
+    def get_new_id(self):
+        potential_id = 0
+        for object in self.objects:
+            if potential_id < int(object.id):
+                potential_id = int(object.id)
+        return str(potential_id + 1)
+
     def save_repo(self):
         save_objects = self.save_objects_list()
         with open(self.repoPath, 'w') as save_loc:

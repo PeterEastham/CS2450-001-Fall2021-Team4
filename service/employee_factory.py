@@ -20,6 +20,9 @@ class EmployeeFactory():
         if version == "emp_1.3":
             return EmployeeFactory.version_one_three(dict_row)
 
+        if version == "add_screen":
+            return EmployeeFactory.version_one_three(dict_row)
+
     @staticmethod
     def version_one(dict_row):
         base = EmployeeFactory.base_dictionary()

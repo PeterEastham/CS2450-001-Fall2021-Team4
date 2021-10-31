@@ -18,3 +18,18 @@ def convert_payment_method(enum_value):
         return "Direct Deposit"
     if enum_value == Paycheck_Method.MAIL or enum_value == Paycheck_Method.MAIL.value:
         return "Mail"
+
+
+def reverse_classification_convert(str_value):
+    if str_value == "Commission":
+        return Classification.COMMISSIONED
+    if str_value == "Salary":
+        return Classification.SALARIED
+    if str_value == "Hourly":
+        return Classification.HOURLY
+
+def reverse_payment_method_convert(str_value):
+    if str_value == "Mail":
+        return Paycheck_Method.MAIL
+    if str_value == "Direct Deposit":
+        return Paycheck_Method.DIRECT_DEPOSIT

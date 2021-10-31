@@ -45,6 +45,8 @@ class TimeCardController():
         return self._TimeCardRepo.get_one_by_id(emp_id)
 
     def get_total_hours(self, emp_id):
+        if self._TimeCardRepo.get_one_by_id(emp_id) == None:
+            return 0
         return self._TimeCardRepo.get_one_by_id(emp_id).get_total_hours()
 
     def update_timecard(self, changed_timecard):

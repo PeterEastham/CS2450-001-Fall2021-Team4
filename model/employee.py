@@ -69,12 +69,12 @@ class Employee:
     #without inputting a payment value each time.
     def set_income(self, money):
         if self.classification == Classification.SALARIED.value:
-            self.salary = money[0]
+            self.salary = float(money[0])
         if self.classification == Classification.HOURLY.value:
-            self.rate = money[1]
+            self.rate = float(money[1])
         if self.classification == Classification.COMMISSIONED.value:
-            self.salary = money[0]
-            self.rate = money[2]
+            self.salary = float(money[0])
+            self.rate = float(money[2])
 
     #Private Method
     def __get_income(self):
@@ -206,8 +206,8 @@ class EmployeeValidator():
         return validation
 
     def validate_payment_info(self, employee, validation):
-        validation["classification"] = self.validate_int_range(employee.classification, [0,1,2])
-        validation["payment_method"] = self.validate_int_range(employee.payment_Method, [0,1])
+        validation["classification"] = self.validate_int_range(employee.classification, [1,2,3])
+        validation["payment_method"] = self.validate_int_range(employee.payment_Method, [1,2])
 
         if validation["classification"]:
             if employee.classification == Classification.SALARIED.value:
@@ -220,9 +220,10 @@ class EmployeeValidator():
 
         if validation["payment_method"]:
             if employee.payment_Method == Paycheck_Method.DIRECT_DEPOSIT.value:
-                #Will be re-included once we know the format the professor plans on
-                #validation["route"] = self.validate_routing_str(employee.route)
+                validation["route"] = self.validate_routing_str(employee.route)
                 validation["account"] = self.validate_account_number(employee.account)
+            else:
+                validation["payment_method"] = True
         return validation
 
     def validate_float(self, salary):
@@ -262,15 +263,11 @@ class EmployeeValidator():
     def validate_routing_str(self, routing_str):
         if not isinstance(routing_str, str):
             return False
-        if len(routing_str) != 9:
+        tester = re.compile("\d{9}")
+        result = tester.match(routing_str)
+        if isinstance(result, None.__class__):
             return False
-        routing_num = [int(digit) for digit in routing_str]
-
-        total = (3 * (routing_num[0] + routing_num[3] + routing_num[6])
-                 + 7 * (routing_num[1] + routing_num[4] + routing_num[7])
-                 + (routing_num[2] + routing_num[5] + routing_num[8]))
-
-        return True if total % 10 == 0 else False
+        return True
 
     def validate_account_number(self, account_str):
         if not isinstance(account_str, str):

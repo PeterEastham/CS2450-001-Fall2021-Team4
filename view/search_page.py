@@ -80,7 +80,7 @@ class EmployeeSearchPage(tk.Tk):
             selected_emp_id = self.right_list_box.get(selected_index[0])
         selected_emp_id = self.emp_dict[selected_emp_id]
         target_emp = self.UC.get_employee_by_id(selected_emp_id)
-        view_window = EmployeeViewPage(self._SuperController, target_emp)
+        view_window = EmployeeViewPage(self._SuperController, self, target_emp)
         view_window.mainloop()
 
 
@@ -99,6 +99,17 @@ class EmployeeSearchPage(tk.Tk):
         LogicCon = self._SuperController.get_a_controller(CT.LOGIN_CONTROLLER)
         LoginPage = self._login_constr(self._SuperController)
         LoginPage.mainloop()
+
+    def add_employee(self):
+        view_window = EmployeeViewPage(self._SuperController, self, None)
+        view_window.mainloop()
+
+    def get_emp_dict(self):
+        try:
+            self.emp_dict = self.UC.get_employee_dict()
+            self.reset()
+        except Exception:
+            print(self.UC._CurrUser.username)
 
     def create_widgets(self):
         """Create widgets for Employee Search Page"""
@@ -119,11 +130,8 @@ class EmployeeSearchPage(tk.Tk):
         self.right_list_box = tk.Listbox(self, selectmode=tk.EXTENDED)
         self.right_list_box.grid(column=2, row=2, sticky="NS")
 
-        try:
-            self.emp_dict = self.UC.get_employee_dict()
-            self.fill_side(self.left_list_box)
-        except Exception:
-            print(self.UC._CurrUser.username)
+        self.get_emp_dict()
+        
         # scroll bar for left side list box
         left_scrollbar = tk.Scrollbar(self)
         left_scrollbar.grid(column=0, row=2, sticky="NSE")
@@ -151,8 +159,11 @@ class EmployeeSearchPage(tk.Tk):
         right_scrollbar.config(command=self.right_list_box.yview)
 
         # view employee button
-        view_button = ttk.Button(self, text="View\nEmployee", command=self.view_employee)
+        view_button = ttk.Button(self, text="View Employee", command=self.view_employee)
         view_button.grid(column=3, row=1, sticky="N", padx=40)
+
+        add_emp_button = ttk.Button(self, text = "Make Employee", command=self.add_employee)
+        add_emp_button.grid(column=2, row=1)
 
         # pay button
         pay_button = ttk.Button(self, text="Pay\nEmployees", command=self.do_payroll)

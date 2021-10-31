@@ -58,10 +58,8 @@ class EmployeeController():
             self._EmpRepo.save_repo()
             self._EmpRepo = None
 
-    #Note, Income = [Salary, Hourly, Commission]
-    #NEED TO REDO THIS
-    def make_new_employee(self, dict_object):
-        pass
+    def get_new_employee_id(self):
+        return self._EmpRepo.get_new_id()
 
     #We'll stick to emp_id since Employee.name might not be unique.
     def get_employee_by_id(self, emp_id):
