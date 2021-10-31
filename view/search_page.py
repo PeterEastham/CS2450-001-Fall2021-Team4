@@ -81,6 +81,7 @@ class EmployeeSearchPage(tk.Tk):
         selected_emp_id = self.emp_dict[selected_emp_id]
         target_emp = self.UC.get_employee_by_id(selected_emp_id)
         view_window = EmployeeViewPage(self._SuperController, target_emp)
+        view_window.mainloop()
 
 
     def do_payroll(self):
