@@ -120,5 +120,6 @@ class UserController:
     #CALL THIS FUNCTION
     def logout(self):
         self._UserRepo.save_repo()
+        self._EC.close_controller()
         self._CurrUser = None
         self._SuperController.close_a_controller(CT.EMPLOYEE_CONTROLLER)

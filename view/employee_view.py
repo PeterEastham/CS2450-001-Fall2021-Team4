@@ -283,20 +283,23 @@ class EmployeeViewPage(tk.Tk):
         self.receipts_timecards_scrollbox = tk.Scrollbar(self)
         self.the_list_box = tk.Listbox(self)
 
+        if self.__employee == None:
+            return None
+
         if self.__employee.classification == Classification.HOURLY.value:
             TimeCon = self._SuperController.get_a_controller(CT.TIMECARD_CONTROLLER)
-            Shifts = TimeCon.get_timecard(self.__employee.id).hours
+            Shifts = TimeCon.get_timecard(self.__employee.id)
             if Shifts == None:
                 return None
-            for shift in Shifts:
+            for shift in Shifts.hours:
                 self.the_list_box.insert(tk.END, shift)
 
         if self.__employee.classification == Classification.COMMISSIONED.value:
             RecCon = self._SuperController.get_a_controller(CT.RECEIPT_CONTROLLER)
-            Fees = RecCon.get_receipt(self.__employee.id).costs
+            Fees = RecCon.get_receipt(self.__employee.id)
             if Fees == None:
                 return None
-            for fee in Fees:
+            for fee in Fees.costs:
                 self.the_list_box.insert(tk.END, fee)
 
 
