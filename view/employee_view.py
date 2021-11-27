@@ -133,7 +133,7 @@ class EmployeeViewPage(tk.Tk):
         self.start_date_title_lb = ttk.Label(self, text="Start Date")
 
         self.salary_title_lb = ttk.Label(self, text="Salary")
-        self.rate_title_lb = ttk.Label(self, text="Hourly pRate")
+        self.rate_title_lb = ttk.Label(self, text="Hourly Rate")
         self.route_title_lb = ttk.Label(self, text="Route")
         self.account_title_lb = ttk.Label(self, text="Account")
         self.classification_title_lb = ttk.Label(self, text="Classification")

@@ -10,10 +10,6 @@ How to Run
 Installation Issue
   This project is designed to run on Python 3.9.X, which you can find here -
   https://www.python.org/downloads/release/python-397/
-  You will know this is an issue if when you try to run the program, you get
-  |= is an unsupported operand for 'dict' and 'dict'
-
-  No other installation issues are currently known.
 
   You can check your version of Python by opening a Computer Shell and running
   `python --version`, for some versions of Windows that also might include

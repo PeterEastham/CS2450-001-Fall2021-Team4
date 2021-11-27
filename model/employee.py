@@ -164,10 +164,18 @@ class EmployeeValidator():
 
     def validation_values(self, employee):
         status = self.base_dictionary()
-        status |= self.validate_personal_info(employee, status)
-        status |= self.validate_business_info(employee, status)
-        status |= self.validate_address(employee, status)
-        status |= self.validate_payment_info(employee, status)
+        other_dict = self.validate_personal_info(employee, status)
+        for key in other_dict:
+            status[key] = other_dict[key]
+        other_dict = self.validate_business_info(employee, status)
+        for key in other_dict:
+            status[key] = other_dict[key]
+        other_dict = self.validate_address(employee, status)
+        for key in other_dict:
+            status[key] = other_dict[key]
+        other_dict = self.validate_payment_info(employee, status)
+        for key in other_dict:
+            status[key] = other_dict[key]
         return status
 
     #Validates First/Last Name, and SSN.
