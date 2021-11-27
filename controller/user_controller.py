@@ -67,52 +67,64 @@ class UserController:
         self._CurrUser = user
 
     def get_employee_dict(self):
-        self.check_priviledge(Permission.CAN_VIEW_EMP.value, "View Employees")
+        check = self.check_priviledge(Permission.CAN_VIEW_EMP.value, "View Employees")
+        if check != None:
+            return check
+            
         return self._EC.get_all_as_dict()
 
+    def can_create_user(self):
+        check = self.check_priviledge(Permission.CAN_CREATE_USER.value, "Create New User")
+        if check != None:
+            return check
 
     #Adds to the UserRepo, we make sure to save the repo on every call.
     def create_new_user(self, username, password, permissions):
-        self.check_privliedge(Permission.CAN_CREATE_USER.value, "Create new User")
-
         self._UserRepo.add_one(User(username, password, permissions))
         self._UserRepo.save_repo()
 
     #Needs to pass in a User Object, we'll have to add in type testing at some point
     def adjust_permissions(self, user):
-        self.check_priviledge(Permission.CAN_GIVE_PERM.value, "Adjust Permissions")
+        check = self.check_priviledge(Permission.CAN_GIVE_PERM.value, "Adjust Permissions")
+        if check != None:
+            return check
 
         self._UserRepo.update_user(user)
         self._UserRepo.save_repo()
 
     #Used in Correlation with adjust_permissions()
     def get_user_by_username(self, username):
-        self.check_priviledge(Permission.CAN_VIEW_EMP.value, "Get User")
+        check = self.check_priviledge(Permission.CAN_VIEW_EMP.value, "Get User")
+        if check != None:
+            return check
 
         return self._UserRepo.get_user_by_username(username)
 
     def get_employee_by_id(self, emp_id):
-        self.check_priviledge(Permission.CAN_VIEW_EMP.value, "View Employee")
+        check = self.check_priviledge(Permission.CAN_VIEW_EMP.value, "View Employee")
+        if check != None:
+            return check
 
         return self._EC.get_employee_by_id(emp_id)
 
     def make_payroll(self, emp_id_list):
-        self.check_priviledge(Permission.MAKE_PAYROLL.value, "Make Payroll")
+        check = self.check_priviledge(Permission.MAKE_PAYROLL.value, "Make Payroll")
+        if check != None:
+            return check
         PCon = self._SuperController.get_a_controller(CT.PAYMENT_CONTROLLER)
         PCon.pay_emp_list(emp_id_list)
         self._SuperController.close_a_controller(CT.PAYMENT_CONTROLLER)
-
 
 
     #We've include self.check_user() since it would be called before this anyway.
     def check_priviledge(self, permission_value, permission_error):
         self.check_user()
         if not self._CurrUser.has_permission(permission_value):
-            raise Exception(f"Current user does not have the {permission_error} permission")
+            return(f"Current user does not have the {permission_error} permission")
 
     def check_user(self):
         if self._CurrUser == None:
-            raise Exception("There is currently no user logged in!")
+            return("There is currently no user logged in!")
 
 
 

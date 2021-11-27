@@ -18,12 +18,14 @@ class EmployeeViewPage(tk.Tk):
         self._SuperController = Controller
         self.__employee = employee
         self.__SearchWindow = SearchWindow
+        SearchWindow.toggle_window_disable()
         self.create_str_vars()
         self.create_title_labels()
         self.create_timecard_box()
         self.create_button_str_var()
         self.create_buttom_buttons()
         self.place_title_labels()
+        self.protocol("WM_DELETE_WINDOW", self.return_to_search)
         if employee != None:
             self.mode = "view"
             self.create_info_labels()
@@ -55,6 +57,7 @@ class EmployeeViewPage(tk.Tk):
 
 
     def return_to_search(self):
+        self.__SearchWindow.toggle_window_disable()
         self.destroy()
 
     def create_str_vars(self):

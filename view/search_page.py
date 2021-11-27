@@ -1,8 +1,10 @@
 import tkinter as tk
 from tkinter import ttk
+from functools import wraps
 
 from enums.controllers import Controller_Types as CT
 from view.employee_view import EmployeeViewPage
+from view.notification import Notification
 """
 This Class is the landing page after a successful login.
 
@@ -15,7 +17,6 @@ Logout.
 """
 
 class EmployeeSearchPage(tk.Tk):
-
     """Search Page """
     def __init__(self, Controller):
         super().__init__()
@@ -23,6 +24,7 @@ class EmployeeSearchPage(tk.Tk):
         self.geometry("550x250")
         self.title('Employee Search')
         self.resizable(0, 0)
+        self.disable = False
         self._SuperController = Controller
         self.UC = self._SuperController.get_a_controller(CT.USER_CONTROLLER)
         # grid config
@@ -33,7 +35,13 @@ class EmployeeSearchPage(tk.Tk):
     def pass_in_login_construc(self, login_constr):
         self._login_constr = login_constr
 
+    def toggle_window_disable(self):
+        self.disable = not self.disable
+
     def move_items_lr(self):
+        if self.disable:
+            return
+
         curr = list(self.left_list_box.curselection())
         if len(curr) == 0:
             return
@@ -44,6 +52,9 @@ class EmployeeSearchPage(tk.Tk):
             self.left_list_box.delete(index)
 
     def move_items_rl(self):
+        if self.disable:
+            return
+
         curr = list(self.right_list_box.curselection())
         if len(curr) == 0:
             return
@@ -55,11 +66,17 @@ class EmployeeSearchPage(tk.Tk):
 
     #We'll use in combination with "Select All"
     def fill_side(self, side):
+        if self.disable:
+            return
+
         for index, emp in enumerate(self.emp_dict):
             side.insert(index, emp)
 
     def clear_side(self, side):
-       side.delete(0, tk.END)
+        if self.disable:
+            return
+        else:
+            side.delete(0, tk.END)
 
     def select_all(self):
         self.clear_side(self.left_list_box)
@@ -67,11 +84,17 @@ class EmployeeSearchPage(tk.Tk):
         self.fill_side(self.right_list_box)
 
     def reset(self):
+        if self.disable:
+            return
+
         self.clear_side(self.left_list_box)
         self.clear_side(self.right_list_box)
         self.fill_side(self.left_list_box)
 
     def view_employee(self):
+        if self.disable:
+            return
+
         selected_index = self.right_list_box.curselection()
         if len(selected_index) == 0:
             selected_index = self.left_list_box.curselection()
@@ -85,15 +108,24 @@ class EmployeeSearchPage(tk.Tk):
 
 
     def do_payroll(self):
+        if self.disable:
+            return
+
         names = self.right_list_box.get(0,tk.END)
         id_list = [self.emp_dict.get(name) for name in names]
         self.UC.make_payroll(id_list)
 
     def close_application(self):
+        if self.disable:
+            return
+
         self._SuperController.close_all_controllers()
         self.destroy()
 
     def do_logout(self):
+        if self.disable:
+            return
+
         self.UC.logout()
         self.destroy()
         LogicCon = self._SuperController.get_a_controller(CT.LOGIN_CONTROLLER)
@@ -101,15 +133,24 @@ class EmployeeSearchPage(tk.Tk):
         LoginPage.mainloop()
 
     def add_employee(self):
+        if self.disable:
+            return None
+        check = self.UC.can_create_user()
+        if check != None:
+            Notif = Notification(check, self)
+            Notif.mainloop()
+            return None
+
         view_window = EmployeeViewPage(self._SuperController, self, None)
         view_window.mainloop()
 
     def get_emp_dict(self):
-        try:
-            self.emp_dict = self.UC.get_employee_dict()
+        self.emp_dict = self.UC.get_employee_dict()
+        if isinstance(self.emp_dict, str):
+            Notif = Notification(self.emp_dict, self)
+            Notif.mainloop()
+        else:
             self.reset()
-        except Exception:
-            print(self.UC._CurrUser.username)
 
     def create_widgets(self):
         """Create widgets for Employee Search Page"""
@@ -131,7 +172,7 @@ class EmployeeSearchPage(tk.Tk):
         self.right_list_box.grid(column=2, row=2, sticky="NS")
 
         self.get_emp_dict()
-        
+
         # scroll bar for left side list box
         left_scrollbar = tk.Scrollbar(self)
         left_scrollbar.grid(column=0, row=2, sticky="NSE")

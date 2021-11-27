@@ -9,10 +9,12 @@ from tkinter import ttk
 
 class Notification(tk.Tk):
 
-    def __init__(self, message):
+    def __init__(self, message, calledWindow):
         super().__init__()
+        calledWindow.toggle_window_disable()
+        self.__calledWindow = calledWindow
 
-        self.geometry("300x100")
+        self.geometry("400x100")
         self.title("Notice")
         self.resizable(0, 0)
         self.rowconfigure(0, weight=3)
@@ -20,5 +22,13 @@ class Notification(tk.Tk):
         self.message = ttk.Label(self, text=message)
         self.message.grid(column=0, row=0, columnspan=2, ipady=30)
 
-        self.button = ttk.Button(self, text="I Understand", command=self.destroy)
+        self.button = ttk.Button(self, text="I Understand", command=self.handle_close)
         self.button.grid(column=1, row=1, padx=10, pady=10)
+
+        self.protocol("WM_DELETE_WINDOW", self.handle_close)
+
+
+
+    def handle_close(self):
+        self.__calledWindow.toggle_window_disable()
+        self.destroy()
