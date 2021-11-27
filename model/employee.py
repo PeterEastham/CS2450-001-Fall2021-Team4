@@ -98,6 +98,9 @@ class Employee:
     def get_full_name(self):
         return (self.first_name + " " + self.last_name)
 
+    def get_combined_name(self):
+        return (self.first_name + self.last_name)
+
     #EX, Bond, James
     def get_reversed_name(self):
         return (self.last_name + ", " + self.first_name)

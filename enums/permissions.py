@@ -19,3 +19,12 @@ class Permission(Enum):
     CAN_CHANGE_OTHER_EMP_INFO = 7
     CAN_EXPORT_DATABASE = 8
     PROVIDE_ONE_TIME_PASSWORD = 9
+
+
+display_name = {
+    1 : "Make Payroll",
+    3 : "Create User",
+    4 : "Give Permission",
+    6 : "View Employee Information",
+    7 : "Edit Other Employees",
+}

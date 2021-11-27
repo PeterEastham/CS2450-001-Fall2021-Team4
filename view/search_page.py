@@ -5,6 +5,7 @@ from functools import wraps
 from enums.controllers import Controller_Types as CT
 from view.employee_view import EmployeeViewPage
 from view.notification import Notification
+from view.user_control_panel import UserPanel
 """
 This Class is the landing page after a successful login.
 
@@ -31,6 +32,7 @@ class EmployeeSearchPage(tk.Tk):
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=3)
         self.create_widgets()
+        self.protocal("WM_DELETE_WINDOW", self.close_application)
 
     def pass_in_login_construc(self, login_constr):
         self._login_constr = login_constr
@@ -91,6 +93,24 @@ class EmployeeSearchPage(tk.Tk):
         self.clear_side(self.right_list_box)
         self.fill_side(self.left_list_box)
 
+    def make_user(self):
+        if self.disable:
+            return
+
+        selected_index = self.right_list_box.curselection()
+        if len(selected_index) == 0:
+            selected_index = self.left_list_box.curselection()
+            selected_emp_id = self.left_list_box.get(selected_index[0])
+        if not isinstance(selected_index, None):
+            selected_emp_id = self.right_list_box.get(selected_index[0])
+            selected_emp_id = self.emp_dict[selected_emp_id]
+        else:
+            selected_emp_id = self.UC.get_curr_user().employee_id
+
+        user_panel = UserPanel(self._SuperController, self, selected_emp_id)
+        user_panel.mainloop()
+
+
     def view_employee(self):
         if self.disable:
             return
@@ -99,9 +119,11 @@ class EmployeeSearchPage(tk.Tk):
         if len(selected_index) == 0:
             selected_index = self.left_list_box.curselection()
             selected_emp_id = self.left_list_box.get(selected_index[0])
-        else:
+        if not isinstance(selected_index, None):
             selected_emp_id = self.right_list_box.get(selected_index[0])
-        selected_emp_id = self.emp_dict[selected_emp_id]
+            selected_emp_id = self.emp_dict[selected_emp_id]
+        else:
+            return
         target_emp = self.UC.get_employee_by_id(selected_emp_id)
         view_window = EmployeeViewPage(self._SuperController, self, target_emp)
         view_window.mainloop()
@@ -201,19 +223,19 @@ class EmployeeSearchPage(tk.Tk):
 
         # view employee button
         view_button = ttk.Button(self, text="View Employee", command=self.view_employee)
-        view_button.grid(column=3, row=1, sticky="N", padx=40)
+        view_button.grid(column=2, row=1)
 
         add_emp_button = ttk.Button(self, text = "Make Employee", command=self.add_employee)
-        add_emp_button.grid(column=2, row=1)
+        add_emp_button.grid(column=3, row=1, sticky="N", padx=40)
 
         # pay button
         pay_button = ttk.Button(self, text="Pay\nEmployees", command=self.do_payroll)
         pay_button.grid(column=3, row=2, sticky="S", padx=30)
 
-        # close button
-        close_button = ttk.Button(self, text="Close", command=self.close_application)
-        close_button.grid(column=3, row=2, padx=30)
+        # Make User
+        make_user = ttk.Button(self, text="Make User", command=self.make_user)
+        make_user.grid(column=3, row=2, sticky="N", pady=30)
 
         # logout button
         logout_button = ttk.Button(self, text="Logout", command=self.do_logout)
-        logout_button.grid(column=3, row=2, sticky="N", pady=30)
+        logout_button.grid(column=3, row=2, padx=30)

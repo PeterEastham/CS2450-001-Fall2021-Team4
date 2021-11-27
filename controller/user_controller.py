@@ -100,6 +100,9 @@ class UserController:
 
         return self._UserRepo.get_user_by_username(username)
 
+    def get_user_by_emp_id(self, emp_id):
+        return self._UserRepo.get_user
+
     def get_employee_by_id(self, emp_id):
         check = self.check_priviledge(Permission.CAN_VIEW_EMP.value, "View Employee")
         if check != None:
@@ -126,7 +129,8 @@ class UserController:
         if self._CurrUser == None:
             return("There is currently no user logged in!")
 
-
+    def get_curr_user(self):
+        return self._CurrUser
 
     #ANYTIME YOU NO LONGER KNOW THE USER
     #CALL THIS FUNCTION

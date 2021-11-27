@@ -37,6 +37,11 @@ class UserRepo:
             if user.username == username:
                 return user
 
+    def get_user_by_emp_id(self, emp_id):
+        for user in self.users:
+            if user.employee_id == emp_id:
+                return user
+
     #Only the UserController should call this.
     #Exception: self.update_user()
     def add_one(self, user):
