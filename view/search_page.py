@@ -93,6 +93,12 @@ class EmployeeSearchPage(tk.Tk):
         self.clear_side(self.right_list_box)
         self.fill_side(self.left_list_box)
 
+    def reset_bypass(self):
+       self.clear_side(self.left_list_box)
+       self.clear_side(self.right_list_box)
+       self.fill_side(self.left_list_box)
+
+
     def make_user(self):
         if self.disable:
             return

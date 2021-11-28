@@ -5,6 +5,7 @@ from enums.classification import Classification
 from service.enum_converter import convert_classification, convert_payment_method
 from service.enum_converter import reverse_classification_convert, reverse_payment_method_convert
 from service.employee_factory import EmployeeFactory
+from view.notification import Notification as Notif
 
 class EmployeeViewPage(tk.Tk):
 
@@ -18,6 +19,8 @@ class EmployeeViewPage(tk.Tk):
         self._SuperController = Controller
         self.__employee = employee
         self.__SearchWindow = SearchWindow
+        self.disable = False
+
         SearchWindow.toggle_window_disable()
         self.create_str_vars()
         self.create_title_labels()
@@ -39,6 +42,8 @@ class EmployeeViewPage(tk.Tk):
             self.set_id_for_new_emp()
             self.set_buttons_adding()
 
+    def toggle_window_disable(self):
+        self.disable != self.disable
 
     def swap_to_edit(self):
         self.mode = "edit"
@@ -57,6 +62,9 @@ class EmployeeViewPage(tk.Tk):
 
 
     def return_to_search(self):
+        if self.disable:
+            return
+
         self.__SearchWindow.toggle_window_disable()
         self.destroy()
 
@@ -215,6 +223,9 @@ class EmployeeViewPage(tk.Tk):
 
 
     def cycle_classification(self):
+        if self.disable:
+            return
+
         if self.classification.get() == "Hourly":
             self.classification.set("Commission")
             return None
@@ -399,6 +410,9 @@ class EmployeeViewPage(tk.Tk):
 
 
     def attempt_creation(self):
+        if self.disable:
+            return
+
         Emp_Dict = {
             "id" : self.id.get(),
             "first_name" : self.first_name.get(),
@@ -426,15 +440,26 @@ class EmployeeViewPage(tk.Tk):
         self.potential_employee = EmployeeFactory.create_employee("add_screen", Emp_Dict)
 
     def attempt_save(self):
+        if self.disable:
+            return
+
         self.attempt_creation()
         if self.potential_employee.valid:
             self.__employee = self.potential_employee
             EmpCon = self._SuperController.get_a_controller(CT.EMPLOYEE_CONTROLLER)
             EmpCon.update_employee(self.__employee)
             self.__SearchWindow.get_emp_dict()
+            self.__SearchWindow.reset_bypass()
+        else:
+            notif = Notif("Invalid Employee Information!", self)
+            notif.mainloop()
+
         self.save_wrap_up(self.potential_employee.valid)
 
     def save_wrap_up(self, result):
+        if self.disable:
+            return
+             
         if self.mode == "edit" and result:
             self.swap_to_view()
         if self.mode == "add" and result:

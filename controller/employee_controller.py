@@ -54,9 +54,12 @@ class EmployeeController():
 
     #Created an to meet Shareholder Requirements.
     def close_repo(self):
+        self.save_repo()
+        self._EmpRepo = None
+
+    def save_repo(self):
         if self._EmpRepo != None:
             self._EmpRepo.save_repo()
-            self._EmpRepo = None
 
     def get_new_employee_id(self):
         return self._EmpRepo.get_new_id()
@@ -91,6 +94,7 @@ class EmployeeController():
             self.__no_emp_repo()
         else:
             self._EmpRepo.update_object(changed_employee)
+            self.save_repo()
 
 
     def get_pay(self, emp_id):
