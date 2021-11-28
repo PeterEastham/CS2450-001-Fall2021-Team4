@@ -54,9 +54,15 @@ class UserRepo:
             if user.username == username:
                 self.users.remove(user)
 
+    def remove_one_by_emp_id(self, emp_id):
+        for user in self.users:
+            if user.employee_id == emp_id:
+                self.users.remove(user)
+
     #Wrapper for remove/add, easiest way to handle it really.
     def update_user(self, updated_user):
         self.remove_one_by_username(updated_user.username)
+        self.remove_one_by_emp_id(updated_user.employee_id) #Cover all the bases
         self.add_one(updated_user)
 
     #We'll keep all the users, since in theory we shouldn't

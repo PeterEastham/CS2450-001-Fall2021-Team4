@@ -5,6 +5,8 @@ import tkinter as tk
 from tkinter import ttk
 from enums.permissions import Permission, display_name
 from enums.controllers import Controller_Types as CT
+from model.user import User
+from view.notification import Notification as Notif
 
 class UserPanel(tk.Tk):
 
@@ -15,6 +17,7 @@ class UserPanel(tk.Tk):
         self.__SearchWindow = SearchWindow
         SearchWindow.toggle_window_disable()
         self.protocol('WM_DELETE_WINDOW', self.close_instance)
+        self.disable = False
 
         self.geometry("450x250")
         self.title("User Panel")
@@ -29,8 +32,13 @@ class UserPanel(tk.Tk):
         self.set_user(employee_id)
         self.reset()
 
+    def toggle_window_disable(self):
+        self.disable != self.disable
 
     def close_instance(self):
+        if self.disable:
+            return
+            
         self.__SearchWindow.toggle_window_disable()
         self.destroy()
 
@@ -64,6 +72,8 @@ class UserPanel(tk.Tk):
         self.has_permissions = [f"Can {display_name[perm]}" for perm in self.User.permissions]
 
     def move_items_lr(self):
+        if self.disable:
+            return
 
         curr = list(self.left_list_box.curselection())
         if len(curr) == 0:
@@ -75,6 +85,8 @@ class UserPanel(tk.Tk):
             self.left_list_box.delete(index)
 
     def move_items_rl(self):
+        if self.disable:
+            return
 
         curr = list(self.right_list_box.curselection())
         if len(curr) == 0:
@@ -86,6 +98,9 @@ class UserPanel(tk.Tk):
             self.right_list_box.delete(index)
 
     def reset(self):
+        if self.disable:
+            return
+
         self.clear_side(self.left_list_box)
         self.clear_side(self.right_list_box)
         self.fill_side(self.left_list_box)
@@ -93,6 +108,9 @@ class UserPanel(tk.Tk):
 
     #We'll use in combination with "Select All"
     def fill_side(self, side):
+        if self.disable:
+            return
+
         if side == self.left_list_box:
             for index, perm in enumerate(self.give_permissions):
                 side.insert(index, perm)
@@ -101,9 +119,15 @@ class UserPanel(tk.Tk):
                 side.insert(index, perm)
 
     def clear_side(self, side):
-        side.delete(0, tk.END)
+        if self.disable:
+            return
+        else:
+            side.delete(0, tk.END)
 
     def select_all(self):
+        if self.disable:
+            return
+
         self.clear_side(self.right_list_box)
         self.clear_side(self.left_list_box)
         index = 0
@@ -115,7 +139,30 @@ class UserPanel(tk.Tk):
             self.right_list_box.insert(index, value)
 
     def attempt_save(self):
-        pass
+        if self.disable:
+            return
+
+        permissions = []
+        selected_permissions = self.right_list_box.get(0, tk.END)
+        selected_permissions = [value[4:] for value in selected_permissions]
+        for key,value in display_name.items():
+            if value in selected_permissions:
+                permissions.append(key)
+        perm_input = ""
+        for value in permissions:
+            perm_input += f"{value}:"
+        perm_input = perm_input[:-1]
+        if isinstance(self.User, type(None)):
+            user = User(self.username.get(), self.Employee.id, self.Employee.id, perm_input)
+        else:
+            user = User(self.User.username, self.User.password, self.User.employee_id, perm_input)
+        result = self.UC.adjust_permissions(user)
+
+        if result != None:
+            notif = Notif(result, self)
+            notif.mainloop()
+        else:
+            self.close_instance()
 
 
     def create_widgets(self):

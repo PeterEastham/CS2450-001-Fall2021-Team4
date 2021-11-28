@@ -89,6 +89,9 @@ class UserController:
         if check != None:
             return check
 
+        if user.employee_id == self._CurrUser.employee_id:
+            self._CurrUser = user
+            
         self._UserRepo.update_user(user)
         self._UserRepo.save_repo()
 
