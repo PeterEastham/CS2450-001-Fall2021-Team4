@@ -187,7 +187,7 @@ class EmployeeSearchPage(tk.Tk):
         search_label.grid(column=0, row=0)
 
         # search box
-        self.search_box = tk.StringVar(value="")
+        self.search_box = tk.StringVar(value="NOT IMPLEMENTED")
         username_entry = ttk.Entry(self, textvariable=self.search_box)
         username_entry.grid(column=0, row=1)
 
@@ -239,7 +239,7 @@ class EmployeeSearchPage(tk.Tk):
         pay_button.grid(column=3, row=2, sticky="S", padx=30)
 
         # Make User
-        make_user = ttk.Button(self, text="Make User", command=self.make_user)
+        make_user = ttk.Button(self, text="Edit/Add User", command=self.make_user)
         make_user.grid(column=3, row=2, sticky="N", pady=30)
 
         # logout button

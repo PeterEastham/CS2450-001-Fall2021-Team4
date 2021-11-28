@@ -46,3 +46,6 @@ class User:
             save = save[:-1]
         save += '\n'
         return save
+
+    def __str__(self):
+        return self.save_format()[:-2]

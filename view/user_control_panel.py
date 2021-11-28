@@ -10,6 +10,7 @@ class UserPanel(tk.Tk):
 
     def __init__(self, SuperController, SearchWindow, employee_id):
         super().__init__()
+        print(f"Employee Id { employee_id }")
         self._SuperController = SuperController
         self.__SearchWindow = SearchWindow
         SearchWindow.toggle_window_disable()
@@ -19,7 +20,14 @@ class UserPanel(tk.Tk):
         self.title("User Panel")
         self.resizable(0, 0)
         self.UC = self._SuperController.get_a_controller(CT.USER_CONTROLLER)
+        self._CurrUser = self.UC.get_curr_user()
+        self.give_permissions = []
+        self.has_permissions = []
+
+        if employee_id == None:
+            employee_id = self._CurrUser.employee_id
         self.set_user(employee_id)
+        self.reset()
 
 
     def close_instance(self):
@@ -37,11 +45,23 @@ class UserPanel(tk.Tk):
 
     def create_user(self):
         self.create_widgets()
+        self.giveable_permissions()
         self.username.set(self.Employee.get_combined_name())
+
+    def giveable_permissions(self):
+        self.temp = [f"Can {display_name[perm]}" for perm in self._CurrUser.permissions]
+        self.give_permissions = [value for value in self.temp
+                                        if value not in self.has_permissions]
 
     def view_user(self):
         self.create_widgets()
+        self.owned_permissions()
+        if self.User.employee_id != self._CurrUser.employee_id:
+            self.giveable_permissions()
         self.username.set(self.User.username)
+
+    def owned_permissions(self):
+        self.has_permissions = [f"Can {display_name[perm]}" for perm in self.User.permissions]
 
     def move_items_lr(self):
 
@@ -66,30 +86,44 @@ class UserPanel(tk.Tk):
             self.right_list_box.delete(index)
 
     def reset(self):
-        if self.disable:
-            return
-
         self.clear_side(self.left_list_box)
         self.clear_side(self.right_list_box)
         self.fill_side(self.left_list_box)
+        self.fill_side(self.right_list_box)
 
     #We'll use in combination with "Select All"
     def fill_side(self, side):
-        pass
+        if side == self.left_list_box:
+            for index, perm in enumerate(self.give_permissions):
+                side.insert(index, perm)
+        else:
+            for index, perm in enumerate(self.has_permissions):
+                side.insert(index, perm)
 
     def clear_side(self, side):
         side.delete(0, tk.END)
 
     def select_all(self):
-        self.clear_side(self.left_list_box)
         self.clear_side(self.right_list_box)
-        self.fill_side(self.right_list_box)
+        self.clear_side(self.left_list_box)
+        index = 0
+        for ind, value in enumerate(self.has_permissions):
+            index = ind
+            self.right_list_box.insert(index, value)
+        for value in self.give_permissions:
+            index += 1
+            self.right_list_box.insert(index, value)
+
 
     def create_widgets(self):
 
+        self.left_list_lb = ttk.Label(self, text="Giveabled Permissions")
+        self.left_list_lb.grid(column=0, row=1)
         self.left_list_box = tk.Listbox(self, selectmode=tk.EXTENDED)
         self.left_list_box.grid(column=0, row=2)
 
+        self.right_list_lb = ttk.Label(self, text="Owned Permissions")
+        self.right_list_lb.grid(column=2, row=1)
         self.right_list_box = tk.Listbox(self, selectmode=tk.EXTENDED)
         self.right_list_box.grid(column=2, row=2, sticky="NS")
 

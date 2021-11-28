@@ -23,8 +23,9 @@ class Permission(Enum):
 
 display_name = {
     1 : "Make Payroll",
+    2 : "View Employees",
     3 : "Create User",
-    4 : "Give Permission",
+    4 : "Give Permissions",
     6 : "View Employee Information",
     7 : "Edit Other Employees",
 }
