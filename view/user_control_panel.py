@@ -114,6 +114,9 @@ class UserPanel(tk.Tk):
             index += 1
             self.right_list_box.insert(index, value)
 
+    def attempt_save(self):
+        pass
+
 
     def create_widgets(self):
 
@@ -154,3 +157,9 @@ class UserPanel(tk.Tk):
 
         self.password_label = ttk.Label(self, text="********")
         self.password_label.grid(column=3, row=4, sticky="N")
+
+        self.save_button  = ttk.Button(self, text="Save", command=self.attempt_save)
+        self.save_button.grid(column=0, row=4)
+
+        self.close_button = ttk.Button(self, text="Close", command=self.close_instance)
+        self.close_button.grid(column=2, row=4)
