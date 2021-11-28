@@ -1,21 +1,21 @@
 id,first_name,last_name,archived,social_security,title,department,office_email,office_phone,start_date,imported,street_address,city,state,zipcode,classification,payment_Method,salary,rate,route,account,valid
-160769,Grant,X. Mccarthy,False,,,,,,,True,9846 Arcu. Road,Ketchikan,AK,99634,3,1,36025.38,11,7117844-7,288413-2164,False
+160769,Grant,X. Mccarthy,False,,,,,,,True,9846 Arcu. Road,Ketchikan,AK,99634,3,1,36025.38,11.0,7117844-7,288413-2164,False
 163695,Beatrice,P. Ware,False,,,,,,,True,8903 Eget Rd.,Oklahoma City,OK,20552,1,1,0,86.47,26387832-9,212804-3003,False
-165966,Rooney,Alvarado,False,,,,,,,True,4963 Nisl. St. Ap #185,Gillette,WY,20226,3,2,34532.37,24,37324307-8,422046-0739,False
+165966,Rooney,Alvarado,False,,,,,,,True,4963 Nisl. St. Ap #185,Gillette,WY,20226,3,2,34532.37,24.0,37324307-8,422046-0739,False
 169927,Alexandra,Y. Duke,False,,,,,,,True,P.O. Box 727,Springfield,MA,50647,2,2,31631.98,0,23609043-4,538878-8548,False
-224568,Jenna,B. Strickland,False,,,,,,,True,70156 Rutrum Street,Phoenix,AZ,86207,1,1,0,24.70,33878326-4,248847-6397,False
-226423,Randall,Horton,False,,,,,,,True,3834 Tortor Av.,Topeka,KS,52541,2,2,40872.60,0,13255163-4,104934-8350,False
-265154,Amir,Mcintosh,False,,,,,,,True,83493 Nibh. Ave,West Jordan,UT,40532,3,2,91254.76,27,8752077-3,866009-0500,False
+224568,Jenna,B. Strickland,False,,,,,,,True,70156 Rutrum Street,Phoenix,AZ,86207,1,1,0,24.7,33878326-4,248847-6397,False
+226423,Randall,Horton,False,,,,,,,True,3834 Tortor Av.,Topeka,KS,52541,2,2,40872.6,0,13255163-4,104934-8350,False
+265154,Amir,Mcintosh,False,,,,,,,True,83493 Nibh. Ave,West Jordan,UT,40532,3,2,91254.76,27.0,8752077-3,866009-0500,False
 283809,Hanae,Dickson,False,,,,,,,True,1633 Dolor Av.,Dover,DE,61813,1,2,0,91.22,48786143-K,295643-0090,False
 285767,Porter,Wolfe,False,,,,,,,True,4842 Tincidunt Av.,Miami,FL,44875,1,1,0,87.54,16506147-0,087434-1662,False
-3,Peter,Eastham,False,,,,,,,True,555 Main Street,Orem,Utah,84321,2,1,100000.00,0,124123121,1233444444,False
+3,Peter,Eastham,False,,,,,,,True,555 Main Street,Orem,Utah,84321,2,1,100000.0,0,124123121,1233444444,False
 349833,Damian,Garrison,False,,,,,,,True,1646 In Street,San Francisco,CA,95787,2,2,99571.55,0,45550736-7,779184-5410,False
-377013,Teagan,Goodwin,False,,,,,,,True,P.O. Box 317,Akron,OH,66603,3,2,69765.24,13,24639186-6,433898-4976,False
-379767,Jin,W. Morrison,False,,,,,,,True,8628 Id St.,Milwaukee,WI,80356,3,1,64467.10,33,21038669-6,654904-8491,False
+377013,Teagan,Goodwin,False,,,,,,,True,P.O. Box 317,Akron,OH,66603,3,2,69765.24,13.0,24639186-6,433898-4976,False
+379767,Jin,W. Morrison,False,,,,,,,True,8628 Id St.,Milwaukee,WI,80356,3,1,64467.1,33.0,21038669-6,654904-8491,False
 426824,Mira,Y. Wolf,False,,,,,,,True,37224 Pharetra Ave,Savannah,GA,22329,1,2,0,26.99,12666803-1,158217-3462,False
-454912,Sylvester,J. Rowland,False,,,,,,,True,8628 Pede Ave,Baltimore,MD,93306,1,1,0,25.20,5363288-2,339235-5453,False
+454912,Sylvester,J. Rowland,False,,,,,,,True,8628 Pede Ave,Baltimore,MD,93306,1,1,0,25.2,5363288-2,339235-5453,False
 502141,Brock,Sandoval,False,,,,,,,True,4882 Consectetuer Street,Wyoming,WY,15840,2,1,58436.75,0,13977869-3,906688-1963,False
-522759,TaShya,D. Snow,False,,,,,,,True,2624 Hendrerit St.,College,AK,99789,2,2,50005.50,0,36644938-8,244269-0000,False
+522759,TaShya,D. Snow,False,,,,,,,True,2624 Hendrerit St.,College,AK,99789,2,2,50005.5,0,36644938-8,244269-0000,False
 531061,Alvin,Guerrero,False,,,,,,,True,248 Mauris St. Ap #748,Indianapolis,IN,92237,2,2,56430.96,0,16935557-6,994966-8363,False
 674261,Scott,T. Shields,False,,,,,,,True,8402 Pretium Rd. Ap #163,Grand Rapids,MI,26321,1,1,0,83.43,21871936-8,779622-5618,False
 688997,Karina,Gay,False,,,,,,,True,998 Vitae St.,Atlanta,GA,45169,1,1,0,46.92,30417353-K,465794-3611,False

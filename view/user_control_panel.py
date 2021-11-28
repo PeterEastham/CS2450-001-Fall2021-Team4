@@ -9,20 +9,26 @@ from enums.controllers import Controller_Types as CT
 class UserPanel(tk.Tk):
 
     def __init__(self, SuperController, SearchWindow, employee_id):
-        super().__init()
-        self.__SuperController = SuperController
+        super().__init__()
+        self._SuperController = SuperController
         self.__SearchWindow = SearchWindow
         SearchWindow.toggle_window_disable()
+        self.protocol('WM_DELETE_WINDOW', self.close_instance)
 
         self.geometry("450x250")
         self.title("User Panel")
-        self.resizeable(0, 0)
+        self.resizable(0, 0)
         self.UC = self._SuperController.get_a_controller(CT.USER_CONTROLLER)
         self.set_user(employee_id)
 
+
+    def close_instance(self):
+        self.__SearchWindow.toggle_window_disable()
+        self.destroy()
+
     def set_user(self, employee_id):
         self.User = self.UC.get_user_by_emp_id(employee_id)
-        if isinstance(self.User, None):
+        if isinstance(self.User, type(None)):
             self.Employee = self.UC.get_employee_by_id(employee_id)
             self.create_user()
         else:
@@ -59,10 +65,17 @@ class UserPanel(tk.Tk):
             self.left_list_box.insert(tk.END, self.right_list_box.get(index))
             self.right_list_box.delete(index)
 
+    def reset(self):
+        if self.disable:
+            return
+
+        self.clear_side(self.left_list_box)
+        self.clear_side(self.right_list_box)
+        self.fill_side(self.left_list_box)
+
     #We'll use in combination with "Select All"
     def fill_side(self, side):
-        for index, emp in enumerate(self.emp_dict):
-            side.insert(index, emp)
+        pass
 
     def clear_side(self, side):
         side.delete(0, tk.END)
@@ -77,7 +90,7 @@ class UserPanel(tk.Tk):
         self.left_list_box = tk.Listbox(self, selectmode=tk.EXTENDED)
         self.left_list_box.grid(column=0, row=2)
 
-        self.right_list_box = tk.Listbox(self, selectMode=tk.EXTENDED)
+        self.right_list_box = tk.Listbox(self, selectmode=tk.EXTENDED)
         self.right_list_box.grid(column=2, row=2, sticky="NS")
 
         # add button
@@ -98,13 +111,12 @@ class UserPanel(tk.Tk):
 
         self.username_lb = ttk.Label(self, text="Username")
         self.password_lb = ttk.Label(self, text="Password")
-        self.username_lb.grid(column=3, row=1, sticky="E")
-        self.password_lb.grid(column=3, row=2, sticky="E")
+        self.username_lb.grid(column=3, row=1, sticky="N")
+        self.password_lb.grid(column=3, row=3, sticky="N")
 
         self.username = tk.StringVar(self, value="")
         self.username_label = ttk.Label(self, textvariable=self.username)
-        self.username_label.grid(column=4, row=1)
+        self.username_label.grid(column=3, row=2, sticky="N")
 
-        self.password = tk.StringVar(self, show="*")
-        self.password_label = ttk.Label(self, textvariable=self.password)
-        self.password_label.grid(column=4, row=2)
+        self.password_label = ttk.Label(self, text="********")
+        self.password_label.grid(column=3, row=4, sticky="N")

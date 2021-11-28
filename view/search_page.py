@@ -32,7 +32,7 @@ class EmployeeSearchPage(tk.Tk):
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=3)
         self.create_widgets()
-        self.protocal("WM_DELETE_WINDOW", self.close_application)
+        self.protocol("WM_DELETE_WINDOW", self.close_application)
 
     def pass_in_login_construc(self, login_constr):
         self._login_constr = login_constr
@@ -100,12 +100,14 @@ class EmployeeSearchPage(tk.Tk):
         selected_index = self.right_list_box.curselection()
         if len(selected_index) == 0:
             selected_index = self.left_list_box.curselection()
-            selected_emp_id = self.left_list_box.get(selected_index[0])
-        if not isinstance(selected_index, None):
+            if len(selected_index) != 0:
+                selected_emp_id = self.left_list_box.get(selected_index[0])
+                selected_emp_id = self.emp_dict[selected_emp_id]
+            else:
+                selected_emp_id = self.UC.get_curr_user().employee_id
+        else:
             selected_emp_id = self.right_list_box.get(selected_index[0])
             selected_emp_id = self.emp_dict[selected_emp_id]
-        else:
-            selected_emp_id = self.UC.get_curr_user().employee_id
 
         user_panel = UserPanel(self._SuperController, self, selected_emp_id)
         user_panel.mainloop()
@@ -116,14 +118,19 @@ class EmployeeSearchPage(tk.Tk):
             return
 
         selected_index = self.right_list_box.curselection()
+        selected_emp_id = None
         if len(selected_index) == 0:
             selected_index = self.left_list_box.curselection()
-            selected_emp_id = self.left_list_box.get(selected_index[0])
-        if not isinstance(selected_index, None):
-            selected_emp_id = self.right_list_box.get(selected_index[0])
-            selected_emp_id = self.emp_dict[selected_emp_id]
         else:
+            selected_emp_id = self.right_list_box.get(selected_index[0])
+
+        if len(selected_index) == 0:
             return
+
+        if selected_emp_id == None:
+            selected_emp_id = self.left_list_box.get(selected_index[0])
+
+        selected_emp_id = self.emp_dict[selected_emp_id]
         target_emp = self.UC.get_employee_by_id(selected_emp_id)
         view_window = EmployeeViewPage(self._SuperController, self, target_emp)
         view_window.mainloop()
@@ -150,7 +157,6 @@ class EmployeeSearchPage(tk.Tk):
 
         self.UC.logout()
         self.destroy()
-        LogicCon = self._SuperController.get_a_controller(CT.LOGIN_CONTROLLER)
         LoginPage = self._login_constr(self._SuperController)
         LoginPage.mainloop()
 

@@ -101,7 +101,7 @@ class UserController:
         return self._UserRepo.get_user_by_username(username)
 
     def get_user_by_emp_id(self, emp_id):
-        return self._UserRepo.get_user
+        return self._UserRepo.get_user_by_emp_id(emp_id)
 
     def get_employee_by_id(self, emp_id):
         check = self.check_priviledge(Permission.CAN_VIEW_EMP.value, "View Employee")
